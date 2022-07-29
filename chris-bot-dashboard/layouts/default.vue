@@ -2,8 +2,10 @@
   <v-layout>
     <Navbar />
     <v-main>
-      <!--<NuxtPage />-->
-      <NuxtChild />
+      <v-container fluid>
+        <!--<NuxtPage />-->
+        <NuxtChild />
+      </v-container>
     </v-main>
     <v-btn
       @click="toggleTheme"

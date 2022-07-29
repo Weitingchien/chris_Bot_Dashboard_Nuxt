@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 //import { Nitro } from 'nitropack';
 const config = useRuntimeConfig();
 
-export default () => {
-  mongoose
+export default async () => {
+  const db = await mongoose
     .connect(config.MONGODBCONNECTIONSTRING, {
       useNewUrlParser: true,
       useUnifiedTopology: true
@@ -15,3 +15,9 @@ export default () => {
       console.warn(`Error occurred: ${err}`);
     });
 };
+/*
+async function apexChannelDB(mainConnection) {
+  const apexChannelDBConnection = mainConnection.useDb('ytChannel');
+  console.log(apexChannelDBConnection);
+}
+*/
