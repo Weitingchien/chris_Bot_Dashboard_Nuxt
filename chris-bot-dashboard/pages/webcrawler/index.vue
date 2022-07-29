@@ -1,40 +1,45 @@
 <template>
-  <div>
-    <span> Web Crawler</span>
+  <v-row justify="center" align="center">
     <v-card
-      v-for="video in videos.data"
+      v-for="video in data.data"
       :key="video.videoID"
+      tonal
       border
       class="mb-2"
       density="compact"
       :subtitle="video.videoTitle"
-      title="Cuba"
+      :title="video.videoChannelName"
       variant="text"
+      max-width="344"
     >
-      <v-img
-        src="https://picsum.photos/512/128?image=660"
-        height="128"
-        cover
-      ></v-img>
-
-      <v-card-text>
-        During my last trip to South America, I spent 2 weeks traveling through
-        Patagonia in Chile.
-      </v-card-text>
+      <v-layout align-center>
+        <v-img
+          :src="video.videoImage"
+          :width="video.videoImage ? '210px' : '0px'"
+          :height="video.videoImage ? '117.8px' : '0px'"
+          cover
+        >
+        </v-img>
+      </v-layout>
 
       <template v-slot:actions>
-        <v-btn color="primary" variant="text">View More</v-btn>
-
-        <v-btn color="primary" variant="text">See in Map</v-btn>
+        <v-btn color="primary" variant="text">
+          <NuxtLink :to="video.videoLink" no-rel target="_blank">
+            See in YT
+          </NuxtLink></v-btn
+        >
       </template>
     </v-card>
-  </div>
+  </v-row>
 </template>
 
 <script setup>
 const config = useRuntimeConfig();
 
-const { videos } = await useAsyncData('videos', () =>
+const { data } = await useAsyncData('all', () =>
   $fetch(`${config.public.apiBase}/api/webcrawler/all`)
 );
+console.log({ data });
 </script>
+
+<style scoped></style>

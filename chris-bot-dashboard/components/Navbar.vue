@@ -5,7 +5,7 @@
       @click="displayList"
     ></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-    <v-btn icon placeholder="Dashboard">
+    <v-btn to="/" icon placeholder="Dashboard">
       <v-icon> {{ mdiViewDashboard }} </v-icon>
     </v-btn>
     <v-btn to="/webcrawler" icon placeholder="SpiderWeb">
