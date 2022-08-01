@@ -1,5 +1,5 @@
 <template>
-  <v-layout fill-height align-center>
+  <v-layout>
     <Navbar />
     <v-main>
       <v-container fluid>
