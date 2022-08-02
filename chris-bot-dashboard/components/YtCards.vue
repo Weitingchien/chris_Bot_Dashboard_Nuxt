@@ -1,10 +1,5 @@
 <template>
   <div>
-    <Suspense>
-      <Cards />
-      <template #fallback>
-        <AppbarSkeleton />
-      </template>
-    </Suspense>
+    <Cards />
   </div>
 </template>

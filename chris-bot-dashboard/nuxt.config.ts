@@ -19,10 +19,12 @@ export default defineNuxtConfig({
       },
       runtimeConfig: {
         MONGODBCONNECTIONSTRING: process.env.MONGODBCONNECTIONSTRING, // can be overridden by NUXT_API_SECRET environment variable
+        CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+        CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         public: {
           apiBase: process.env.NUXT_PUBLIC_API_BASE, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
         }
-      }
+      },
       /*
       nitro: {
         plugins: [
