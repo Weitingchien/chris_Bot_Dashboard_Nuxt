@@ -31,6 +31,23 @@ const channel = {
   }
 };
 
+const user = {
+  userID: {
+    type: String,
+    unique: true,
+    required: [true, 'A user must have a userID']
+  },
+  userAvatar: {
+    type: String
+  },
+  access_token: {
+    type: String
+  },
+  refresh_token: {
+    type: String
+  }
+};
+
 const ApexChannelSchema = new mongoose.Schema(channel, {
   collection: 'ApexVideos'
 });
@@ -38,6 +55,8 @@ const ApexChannelSchema = new mongoose.Schema(channel, {
 const JTracksChannelSchema = new mongoose.Schema(channel, {
   collection: 'JTracksVideos'
 });
+
+const usersSchema = new mongoose.Schema();
 
 // create model from the schema
 const ChannelRecommendation = mongoose.model(

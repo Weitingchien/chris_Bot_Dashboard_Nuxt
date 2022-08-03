@@ -14,6 +14,7 @@ export default async () => {
     .catch(err => {
       console.warn(`Error occurred: ${err}`);
     });
+  return db;
 };
 /*
 async function apexChannelDB(mainConnection) {

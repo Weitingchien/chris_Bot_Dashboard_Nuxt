@@ -11,7 +11,7 @@
     <v-btn to="/webcrawler" icon placeholder="SpiderWeb">
       <v-icon>{{ mdiSpiderWeb }}</v-icon>
     </v-btn>
-    <v-btn icon placeholder="Login" @click="login">
+    <v-btn icon placeholder="Login" :href="oauth2Url">
       <v-icon>{{ mdiLogin }}</v-icon>
     </v-btn>
   </v-app-bar>
@@ -52,16 +52,11 @@ const displayList = () => {
   drawer.value = !drawer.value;
 };
 
-const login = async () => {
-  await $fetch(`${config.public.apiBase}/api/v1/discord/login`);
-  //const router = useRouter();
+const oauth2Url = ref(
+  `https://discord.com/api/oauth2/authorize?client_id=${config.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
+);
 
-  /*
-  await $fetch(
-    `https://discord.com/api/oauth2/authorize?client_id=1003790898737447025&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
-  );
-  */
-  //const code = await $fetch(`${config.public.apiBase}/api/v1/discord/redirect`);
+const login = async () => {
   /*
   return await $fetch(
     'https://discord.com/api/oauth2/authorize?client_id=1003790898737447025&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify',
@@ -81,7 +76,6 @@ const login = async () => {
   );
   */
 };
-//console.log(login);
 </script>
 
 <style scoped>
