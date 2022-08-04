@@ -1,14 +1,13 @@
 import mongoose from 'mongoose';
 
-const ChannelRecommendationSchema = new mongoose.Schema({
-  videoLink: {
-    type: String,
-    required: [
-      true,
-      'If you want to recommend a channel, you must provide a link'
-    ]
-  }
-});
+const config = useRuntimeConfig();
+
+const dbConnectOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
+const ytChannelDB = mongoose.createConnection(
+  config.MONGODBCONNECTIONSTRINGYTCHANNEL,
+  dbConnectOptions
+);
 
 const channel = {
   videoID: {
@@ -31,23 +30,6 @@ const channel = {
   }
 };
 
-const user = {
-  userID: {
-    type: String,
-    unique: true,
-    required: [true, 'A user must have a userID']
-  },
-  userAvatar: {
-    type: String
-  },
-  access_token: {
-    type: String
-  },
-  refresh_token: {
-    type: String
-  }
-};
-
 const ApexChannelSchema = new mongoose.Schema(channel, {
   collection: 'ApexVideos'
 });
@@ -56,41 +38,24 @@ const JTracksChannelSchema = new mongoose.Schema(channel, {
   collection: 'JTracksVideos'
 });
 
-const usersSchema = new mongoose.Schema();
+//const usersSchema = new mongoose.Schema(user);
 
 // create model from the schema
-const ChannelRecommendation = mongoose.model(
-  'ChannelRecommendation',
-  ChannelRecommendationSchema,
-  'ChannelRecommendation'
-);
+
 //The third parameter can be used to remove the s at the end of the DB name
-const ApexChannels = mongoose.model(
+const ApexChannels = ytChannelDB.model(
   'ApexVideos',
   ApexChannelSchema,
   'ApexVideos'
 );
-const JTracksChannels = mongoose.model(
+const JTracksChannels = ytChannelDB.model(
   'JTracksVideos',
   JTracksChannelSchema,
   'JTracksVideos'
 );
 
 // export model
-export default { ChannelRecommendation, ApexChannels, JTracksChannels };
-/*
-test
-const testApexChannel = new ApexChannel({
-  videoID: 'sadasd',
-  videoLink: 'http://erewrwerew'
-});
-
-testApexChannel
-  .save()
-  .then(doc => {
-    console.log(doc);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-*/
+export default {
+  ApexChannels,
+  JTracksChannels
+};

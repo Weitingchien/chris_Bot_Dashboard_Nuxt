@@ -2,6 +2,19 @@ import { defineNuxtConfig } from 'nuxt'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+    app:{
+      head:{
+        title: 'chrisbotDashboard',
+        meta:[{ charset: 'utf-8' },{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+        link: [
+          {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+          {rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png'},
+          {rel: 'icon', sizes: '32x32', href: '/favicon-32x32.png'},
+          {rel: 'icon', sizes: '16x16', href: '/favicon-16x16.png'},
+          {rel: 'manifest', href: '/site.webmanifest'}
+        ],
+      },
+    },
     //components: true, // Auto import components
     css: ['vuetify/lib/styles/main.sass'], // Global css
     modules: [
@@ -19,7 +32,8 @@ export default defineNuxtConfig({
         },
       },
       runtimeConfig: {
-        MONGODBCONNECTIONSTRING: process.env.MONGODBCONNECTIONSTRING, // can be overridden by NUXT_API_SECRET environment variable
+        MONGODBCONNECTIONSTRINGYTCHANNEL: process.env.MONGODBCONNECTIONSTRINGYTCHANNEL, // can be overridden by NUXT_API_SECRET environment variable
+        MONGODBCONNECTIONSTRINGCHRISBOTDB: process.env.MONGODBCONNECTIONSTRINGCHRISBOTDB,
         CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         public: {
