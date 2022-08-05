@@ -1,12 +1,9 @@
 //const express = require('express');
 import express from 'express';
 import { channelController } from '../controllers/channelController';
-//const ChannelController = require('../controllers/channelController');
-//import ChannelController from '../controllers/channelController';
 const router = express.Router();
 
 //router.get('/webcrawler/:channel', getAllChannels);
 router.get('/webcrawler/all', channelController);
 
 export default router;
-//module.exports = router;

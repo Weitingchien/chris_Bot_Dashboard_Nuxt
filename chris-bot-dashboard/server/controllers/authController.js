@@ -1,6 +1,39 @@
 //import db from '../config/mongodb';
 
 import users from '../models/chrisbotDashboardModel';
+import { serializeSession } from '../utils/session';
+
+async function createOrUpdateUser(
+  user,
+  id,
+  username,
+  avatar,
+  access_token,
+  refresh_token
+) {
+  if (user.length) {
+    console.log('Update user');
+    const updateUser = await users.chrisbotDashboardUsers.findOneAndUpdate(
+      { userID: id },
+      { $set: { userID: id, userName: username, userAvatar: avatar } },
+      { new: true }
+    );
+    return updateUser;
+  } else {
+    console.log('Add user');
+    const newUser = new users.chrisbotDashboardUsers({
+      userID: id,
+      userName: username,
+      userAvatar: avatar,
+      access_token: access_token,
+      refresh_token: refresh_token
+    });
+    await newUser.save((err, user) => {
+      if (err) return console.error(err);
+    });
+    return newUser;
+  }
+}
 
 export async function login(req, res, next) {
   const config = useRuntimeConfig();
@@ -42,37 +75,23 @@ export async function redirect(req, res, next) {
           authorization: `${token_type} ${access_token}`
         }
       });
-      console.log(`response: ${response}`);
-      console.log(`userResponse: ${userResponse}`);
 
       const { id, username, avatar } = userResponse;
       const user = await users.chrisbotDashboardUsers.find({ userID: id });
+      const newUser = await createOrUpdateUser(
+        user,
+        id,
+        username,
+        avatar,
+        access_token,
+        refresh_token
+      );
 
-      if (user.length) {
-        console.log('Update user');
-        const updateUser = await users.chrisbotDashboardUsers.updateOne(
-          { userID: id },
-          { $set: { userID: id, userName: username, userAvatar: avatar } }
-        );
-      } else {
-        console.log('Add user');
-        const newUser = new users.chrisbotDashboardUsers({
-          userID: id,
-          userName: username,
-          userAvatar: avatar,
-          access_token: access_token,
-          refresh_token: refresh_token
-        });
-        newUser.save((err, user) => {
-          console.log('newUser save');
-          if (err) return console.error(err);
-          console.log(user);
-        });
-      }
+      await serializeSession(req, newUser);
 
       res.status(200).json({
         status: 'success',
-        data: { id, username, avatar }
+        data: newUser
       });
     } catch (err) {
       console.log(err);

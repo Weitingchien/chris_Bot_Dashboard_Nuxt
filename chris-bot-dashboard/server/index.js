@@ -1,15 +1,26 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import webCrawler from './routes/webCrawler';
 import auth from './routes/auth/auth';
-import cors from 'cors';
 
 const app = express();
-app.use(cors());
+const config = useRuntimeConfig();
+
+app.use(
+  session({
+    secret: config.SECRET,
+    name: 'connectID',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 3600000 * 24 }
+  })
+);
 
 //const PORT = process.env.PORT || 3001;
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //mongoDBConnect();
 /*
@@ -23,7 +34,7 @@ app.use('*', (req, res, next) => {
   next();
 });
 */
-
+//app.use(deserializeSession);
 app.use(webCrawler);
 app.use(auth);
 

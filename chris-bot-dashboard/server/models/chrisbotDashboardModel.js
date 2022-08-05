@@ -32,6 +32,18 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const sessionSchema = new mongoose.Schema({
+  sessionID: {
+    type: String
+  },
+  data: {
+    type: String
+  },
+  expiresAt: {
+    type: Date
+  }
+});
+
 const ChannelRecommendationSchema = new mongoose.Schema({
   videoLink: {
     type: String,
@@ -54,5 +66,15 @@ const chrisbotDashboardUsers = chrisbotDB.model(
   'chrisbotDashboardUsers'
 );
 
+const chrisbotDashboardSession = chrisbotDB.model(
+  'chrisbotDashboardSession',
+  sessionSchema,
+  'chrisbotDashboardSession'
+);
+
 // export model
-export default { chrisbotDashboardUsers, ChannelRecommendation };
+export default {
+  chrisbotDashboardUsers,
+  ChannelRecommendation,
+  chrisbotDashboardSession
+};

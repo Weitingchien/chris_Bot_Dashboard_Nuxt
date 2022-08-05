@@ -9,6 +9,8 @@ export default defineNuxtConfig({
         link: [
           {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
           {rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png'},
+          {rel: 'icon', sizes: '32x32', href: '/android-chrome-192x192.png'},
+          {rel: 'icon', sizes: '32x32', href: '/android-chrome-512x512.png'},
           {rel: 'icon', sizes: '32x32', href: '/favicon-32x32.png'},
           {rel: 'icon', sizes: '16x16', href: '/favicon-16x16.png'},
           {rel: 'manifest', href: '/site.webmanifest'}
@@ -36,6 +38,7 @@ export default defineNuxtConfig({
         MONGODBCONNECTIONSTRINGCHRISBOTDB: process.env.MONGODBCONNECTIONSTRINGCHRISBOTDB,
         CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+        SECRET: process.env.SECRET,
         public: {
           apiBase: process.env.NUXT_PUBLIC_API_BASE, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
         }
