@@ -13,7 +13,9 @@ app.use(
     name: 'connectID',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 3600000 * 24 }
+    cookie: { maxAge: 600 * 1000 } // 10 minutes
+    //cookie: { maxAge: 3600000 * 24 } // 1 day
+    //cookie: { maxAge: 10000 } // 10 seconds
   })
 );
 

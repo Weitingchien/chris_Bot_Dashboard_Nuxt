@@ -19,10 +19,7 @@ export default defineNuxtConfig({
     },
     //components: true, // Auto import components
     css: ['vuetify/lib/styles/main.sass'], // Global css
-    modules: [
-      '@vueuse/nuxt',
-      '@pinia/nuxt'
-    ],
+    modules: ['@vueuse/nuxt',['@pinia/nuxt']],
      // Will register file from project server directory to handle /server-api/* requests
     serverMiddleware: [{ path: "/api", handler: "~/server/index.js" }], // ex: In frontend : /api/webcrawler/all
     build: {

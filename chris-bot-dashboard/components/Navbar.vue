@@ -33,12 +33,25 @@
       </v-list-item>
       <v-list-item :prepend-icon="mdiLogin" title="Login" value="Login">
       </v-list-item>
+      <!--https://cdn.discordapp.com/avatars/user_id/user_avatar.png-->
+
+      <v-list-item>
+        <v-avatar>
+          <v-img
+            :src="`https://cdn.discordapp.com/avatars/${userStore.getUser.userID}/${userStore.getUser.userAvatar}.png`"
+            :alt="userStore.getUser.userName"
+          ></v-img>
+        </v-avatar>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup>
 import { mdiSpiderWeb, mdiViewDashboard, mdiLogin } from '@mdi/js';
+import { useUserStore } from '~~/store/user.js';
+
+const userStore = useUserStore();
 
 const { width } = useWindowSize();
 
@@ -55,27 +68,6 @@ const displayList = () => {
 const oauth2Url = ref(
   `https://discord.com/api/oauth2/authorize?client_id=${config.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
 );
-
-const login = async () => {
-  /*
-  return await $fetch(
-    'https://discord.com/api/oauth2/authorize?client_id=1003790898737447025&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify',
-    {
-      method: 'POST',
-      body: {
-        client_id: config.CLIENT_ID,
-        client_secret: config.CLIENT_SECRET,
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: `${config.public.apiBase}/`
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }
-  );
-  */
-};
 </script>
 
 <style scoped>

@@ -3,9 +3,9 @@
     <Navbar />
     <v-main>
       <v-container fluid>
-        <div>
+        <main>
           <NuxtPage />
-        </div>
+        </main>
       </v-container>
     </v-main>
     <v-btn

@@ -36,6 +36,11 @@ const sessionSchema = new mongoose.Schema({
   sessionID: {
     type: String
   },
+  userID: {
+    type: String,
+    unique: true,
+    required: [true, 'A user must have a userID']
+  },
   data: {
     type: String
   },

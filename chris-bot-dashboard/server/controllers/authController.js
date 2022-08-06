@@ -15,7 +15,7 @@ async function createOrUpdateUser(
     console.log('Update user');
     const updateUser = await users.chrisbotDashboardUsers.findOneAndUpdate(
       { userID: id },
-      { $set: { userID: id, userName: username, userAvatar: avatar } },
+      { userID: id, userName: username, userAvatar: avatar },
       { new: true }
     );
     return updateUser;
@@ -88,11 +88,13 @@ export async function redirect(req, res, next) {
       );
 
       await serializeSession(req, newUser);
-
+      return res.redirect('/');
+      /*
       res.status(200).json({
         status: 'success',
         data: newUser
       });
+      */
     } catch (err) {
       console.log(err);
       res.status(400).json({

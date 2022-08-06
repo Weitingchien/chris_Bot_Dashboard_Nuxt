@@ -2,18 +2,34 @@ import cookieParser from 'cookie-parser';
 import users from '../models/chrisbotDashboardModel';
 
 export async function serializeSession(req, user) {
+  console.log(`serializeSession's userName: ${user.userName}`);
   req.user = user;
   req.session.user = user.userID;
-  const session = new users.chrisbotDashboardSession({
+  const userSession = await users.chrisbotDashboardSession.findOne({
+    userID: user.userID
+  });
+  console.log(`userSession: ${userSession}`);
+  const sessionData = {
     sessionID: req.sessionID,
+    userID: user.userID,
     data: JSON.stringify({
-      userID: user.userID,
       userName: user.userName,
       userAvatar: user.userAvatar
     }),
     expiresAt: req.session.cookie.expires
-  });
-  session.save();
+  };
+  if (!userSession) {
+    const session = new users.chrisbotDashboardSession(sessionData);
+    session.save();
+  } else {
+    console.log('updateSession');
+    const updateUser = await users.chrisbotDashboardSession.findOneAndUpdate(
+      { userID: user.userID },
+      sessionData,
+      { new: true }
+    );
+    console.log(`updateUser: ${updateUser}`);
+  }
 }
 
 export async function deserializeSession(req, res, next) {
@@ -42,7 +58,12 @@ export async function deserializeSession(req, res, next) {
     return res.status(401).json({ status: 'fail', message: 'Session Expired' });
   } else {
     console.log('Session Not Expired');
-    return res.status(200).json({ status: 'success', message: 'Authorized' });
+    const { data, userID } = sessionFromDB;
+    return res.status(200).json({
+      status: 'success',
+      message: 'Authenticated',
+      data: [data, userID]
+    });
   }
   /*
   console.log(`currentTime: ${currentTime}`);
