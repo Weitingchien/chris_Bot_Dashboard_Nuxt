@@ -9,17 +9,15 @@ export default defineNuxtRouteMiddleware(async to => {
       `${config.public.apiBase}/api/v1/discord/auth`
     );
 
-    //console.log(error.value.response.status);
-    //console.log(`data.value: ${data.value.data}`);
-    //console.log(`error.value: ${error.value}`);
-
     // if path contain /auth/... and get error would redirect to home page.
+
     if (to.path.includes('auth')) {
-      if (error.value) return navigateTo('/', { redirectCode: 301 });
+      if (error.value) {
+        return navigateTo('/', { redirectCode: 301 });
+      }
     }
+
     if (data.value) {
-      console.log('Frontend got user data!!!');
-      console.log(data.value.data);
       const userStore = useUserStore();
       const parseUserData = JSON.parse(data.value.data[0]);
       parseUserData.userID = data.value.data[1];

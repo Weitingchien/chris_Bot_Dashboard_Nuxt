@@ -1,5 +1,4 @@
 import channels from '../models/channelModel';
-//import db from '../config/mongodb';
 
 export async function channelController(req, res, next) {
   console.log('getAllChannels');

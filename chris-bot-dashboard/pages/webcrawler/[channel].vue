@@ -1,3 +1,5 @@
 <template>
-  <span>Apex or J-Tracks</span>
+  <div>
+    <span>Apex or J-Tracks</span>
+  </div>
 </template>

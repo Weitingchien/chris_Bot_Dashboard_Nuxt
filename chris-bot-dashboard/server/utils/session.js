@@ -39,15 +39,16 @@ export async function deserializeSession(req, res, next) {
   if (!connectID) {
     return res.status(401).json({ status: 'fail', message: 'No session' });
   }
-  console.log('continue!');
+
   const sessionIDFromClient = cookieParser
     .signedCookie(connectID, config.SECRET)
     .toString();
   console.log(`sessionIDFromClient: ${sessionIDFromClient}`);
+
   const sessionFromDB = await users.chrisbotDashboardSession.findOne({
     sessionID: sessionIDFromClient
   });
-  console.log(`sessionFromDB: ${sessionFromDB}`);
+
   if (!sessionFromDB) {
     return res.status(401).json({ status: 'fail', message: 'Invalid session' });
   }

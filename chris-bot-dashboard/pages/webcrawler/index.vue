@@ -1,3 +1,5 @@
 <template>
-  <YtCards />
+  <div>
+    <YtCards />
+  </div>
 </template>

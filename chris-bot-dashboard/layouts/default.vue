@@ -1,23 +1,23 @@
 <template>
-  <v-layout>
-    <Navbar />
-    <v-main>
-      <v-container fluid>
-        <main>
+  <div>
+    <v-layout>
+      <Navbar />
+      <v-main>
+        <v-container fluid>
           <NuxtPage />
-        </main>
-      </v-container>
-    </v-main>
-    <v-btn
-      @click="toggleTheme"
-      class="toggletheme"
-      variant="outlined"
-      size="large"
-      :icon="mdiPencil"
-      color="info"
-    >
-    </v-btn>
-  </v-layout>
+        </v-container>
+      </v-main>
+      <v-btn
+        @click="toggleTheme"
+        class="toggletheme"
+        variant="outlined"
+        size="large"
+        :icon="mdiPencil"
+        color="info"
+      >
+      </v-btn>
+    </v-layout>
+  </div>
 </template>
 
 <script setup>

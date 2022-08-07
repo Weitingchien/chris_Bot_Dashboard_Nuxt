@@ -35,18 +35,8 @@ async function createOrUpdateUser(
   }
 }
 
-export async function login(req, res, next) {
-  const config = useRuntimeConfig();
-
-  res.status(200).json({ status: 'success' });
-  //const url = `https://discord.com/api/oauth2/authorize?client_id=${config.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`;
-
-  //res.redirect(url);
-}
-
 export async function redirect(req, res, next) {
   const { code } = req.query;
-  //res.status(200).json({ data: code });
 
   if (code) {
     try {
@@ -103,4 +93,12 @@ export async function redirect(req, res, next) {
       });
     }
   }
+}
+
+export async function logout(req, res, next) {
+  console.log('logout from back-end');
+  req.session.destroy();
+  console.log(req.session);
+  res.clearCookie('connectID');
+  res.status(200).json({ status: 'success', data: 'cookie deleted!' });
 }
