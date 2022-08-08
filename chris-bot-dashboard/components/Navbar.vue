@@ -5,13 +5,17 @@
       @click="displayList"
     ></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-    <v-btn to="/" icon placeholder="Dashboard">
+    <v-btn v-show="!displayBar()" to="/" icon placeholder="Dashboard">
       <v-icon> {{ mdiViewDashboard }} </v-icon>
     </v-btn>
-    <v-btn to="/webcrawler" icon placeholder="SpiderWeb">
+    <v-btn v-show="!displayBar()" to="/webcrawler" icon placeholder="SpiderWeb">
       <v-icon>{{ mdiSpiderWeb }}</v-icon>
     </v-btn>
+    <v-btn v-show="!displayBar()" to="/auth/form" icon placeholder="Form">
+      <v-icon> {{ mdiListBoxOutline }} </v-icon>
+    </v-btn>
     <v-btn
+      v-show="!displayBar()"
       v-if="!userStore.getLoginStatus"
       icon
       placeholder="Login"
@@ -72,28 +76,32 @@
       >
       </v-list-item>
       <v-list-item
+        to="/auth/form"
+        value="Form"
+        title="Form"
+        :prepend-icon="mdiListBoxOutline"
+      >
+      </v-list-item>
+      <v-list-item
         v-if="!userStore.getLoginStatus"
+        :href="oauth2Url"
         :prepend-icon="mdiLogin"
         title="Login"
         value="Login"
       >
       </v-list-item>
       <!--https://cdn.discordapp.com/avatars/user_id/user_avatar.png-->
-
-      <v-list-item v-else-if="userStore.getLoginStatus">
-        <v-avatar>
-          <v-img
-            :src="`https://cdn.discordapp.com/avatars/${userStore.getUser.userID}/${userStore.getUser.userAvatar}`"
-            :alt="userStore.getUser.userName"
-          ></v-img>
-        </v-avatar>
-      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup>
-import { mdiSpiderWeb, mdiViewDashboard, mdiLogin } from '@mdi/js';
+import {
+  mdiSpiderWeb,
+  mdiViewDashboard,
+  mdiLogin,
+  mdiListBoxOutline
+} from '@mdi/js';
 import { useUserStore } from '~~/store/user.js';
 
 const userStore = useUserStore();

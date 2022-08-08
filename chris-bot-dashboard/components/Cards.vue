@@ -104,19 +104,16 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data, pending, refresh, error } = await useAsyncData('all', () => {
-  console.log('asyncData is executed');
-  return $fetch(`${config.public.apiBase}/api/webcrawler/all`);
-});
+const { data, pending, refresh, error } = await $fetch(
+  `${config.public.apiBase}/api/webcrawler/all`
+);
 
 const videos = reactive({
-  ApexChannelsInfo: data.value.data.ApexChannelsInfo,
-  JTracksChannelsInfo: data.value.data.JTracksChannelsInfo
+  ApexChannelsInfo: data.ApexChannelsInfo,
+  JTracksChannelsInfo: data.JTracksChannelsInfo
 });
 
 const arrMerge = videos.ApexChannelsInfo.concat(videos.JTracksChannelsInfo);
-
-//const shortsVideos = data.value.data.
 
 const allData = reactive(arrMerge);
 
@@ -131,11 +128,6 @@ const liveVideos = allData.filter(item => item.videoStatus === 'LIVE');
 const totalNumberOfShortsVideos = computed(() => shortsVideos.length);
 
 const totalNumberOfLiveVideos = computed(() => liveVideos.length);
-
-onMounted(() => {
-  console.log('onMounted');
-  refresh();
-});
 </script>
 
 <style scoped>

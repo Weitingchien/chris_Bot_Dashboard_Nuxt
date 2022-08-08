@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import webCrawler from './routes/webCrawler';
 import auth from './routes/auth/auth';
+import statistics from './routes/statistics/statistics';
 
 const app = express();
 const config = useRuntimeConfig();
@@ -37,6 +38,7 @@ app.use('*', (req, res, next) => {
 });
 */
 //app.use(deserializeSession);
+app.use(statistics);
 app.use(webCrawler);
 app.use(auth);
 

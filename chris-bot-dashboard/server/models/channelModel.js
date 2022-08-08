@@ -38,8 +38,6 @@ const JTracksChannelSchema = new mongoose.Schema(channel, {
   collection: 'JTracksVideos'
 });
 
-//const usersSchema = new mongoose.Schema(user);
-
 // create model from the schema
 
 //The third parameter can be used to remove the s at the end of the DB name
@@ -54,8 +52,26 @@ const JTracksChannels = ytChannelDB.model(
   'JTracksVideos'
 );
 
+const collectionsNames = [];
+const collections = ytChannelDB.collections;
+
+Object.keys(collections).forEach((el, index, array) => {
+  collectionsNames.push(el);
+});
+
+const ApexChannelsDocuments = documents(ApexChannels);
+const JTracksChannelsDocuments = documents(JTracksChannels);
+
+async function documents(type) {
+  const documents = await type.find({});
+  return documents;
+}
+
 // export model
 export default {
   ApexChannels,
-  JTracksChannels
+  JTracksChannels,
+  collectionsNames,
+  ApexChannelsDocuments,
+  JTracksChannelsDocuments
 };
