@@ -59,19 +59,9 @@ Object.keys(collections).forEach((el, index, array) => {
   collectionsNames.push(el);
 });
 
-const ApexChannelsDocuments = documents(ApexChannels);
-const JTracksChannelsDocuments = documents(JTracksChannels);
-
-async function documents(type) {
-  const documents = await type.find({});
-  return documents;
-}
-
 // export model
 export default {
   ApexChannels,
   JTracksChannels,
-  collectionsNames,
-  ApexChannelsDocuments,
-  JTracksChannelsDocuments
+  collectionsNames
 };

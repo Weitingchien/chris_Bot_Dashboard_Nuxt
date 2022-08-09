@@ -84,7 +84,7 @@
         <iframe
           width="210"
           height="117.8"
-          :src="`https://www.youtube.com/embed/${video.videoID}`"
+          :src="`https://www.youtube.com/embed/${video.videoID}?origin=${config.public.apiBase}`"
           frameborder="0"
           allowfullscreen
         ></iframe>
