@@ -29,8 +29,7 @@ export const useUserStore = defineStore('user', {
       this.isLogin = true;
     },
     reset() {
-      const a = Object.assign(this.user, defaultUserState);
-      console.log(`store user: ${a}`);
+      Object.assign(this.user, defaultUserState);
       this.isLogin = defaultLoginState;
     }
   }

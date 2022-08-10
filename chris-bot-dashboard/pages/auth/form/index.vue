@@ -11,6 +11,7 @@
           {{ item.description }}
         </v-tab>
       </v-tabs>
+      <v-divider class="mb-4"></v-divider>
       <v-window v-model="selectedTab">
         <v-window-item
           v-for="(item, index) in tabs"
@@ -36,6 +37,6 @@ const selectedTab = ref(null);
 
 const tabs = reactive([
   { type: 'forms', description: '表單', icon: mdiListBoxOutline },
-  { type: 'preview', description: '預覽', icon: mdiTextBoxSearchOutline }
+  { type: 'preview', description: '預覽/移除', icon: mdiTextBoxSearchOutline }
 ]);
 </script>

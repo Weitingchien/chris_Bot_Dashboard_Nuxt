@@ -1,10 +1,7 @@
 <template>
   <div class="d-flex justify-center">
     <v-form ref="form" v-model="valid" lazy-validation>
-      <v-divider class="my-4"></v-divider>
       <v-text-field
-        v-for="(item, index) in channelNameTextField"
-        :key="item.id"
         v-model="channelName"
         :counter="50"
         :rules="channelNameRules"
@@ -12,15 +9,9 @@
         required
       >
         <template v-slot:append>
-          <v-icon color="red" @click="addChannelNameTextField()">
+          <v-icon color="red" @click="addChannelNameOrType(0)">
             {{ mdiPlus }}
           </v-icon>
-        </template>
-        <template v-slot:prepend>
-          <v-icon color="green" @click="deleteChannelNameTextField(item)">
-            {{ mdiMinus }}
-          </v-icon>
-          <!--<v-divider vertical class="replaceicon" v-else></v-divider>-->
         </template>
       </v-text-field>
 
@@ -36,19 +27,14 @@
       <v-divider class="my-4"></v-divider>
       <v-text-field
         v-model="channelType"
-        :counter="50"
-        :rules="channelNameRules"
+        :counter="15"
+        :rules="channelTypeRules"
         label="其他推薦的頻道種類"
         required
       >
         <template v-slot:append>
-          <v-icon color="red">
+          <v-icon color="red" @click="addChannelNameOrType(1)">
             {{ mdiPlus }}
-          </v-icon>
-        </template>
-        <template v-slot:prepend>
-          <v-icon color="green">
-            {{ mdiMinus }}
           </v-icon>
         </template>
       </v-text-field>
@@ -60,7 +46,7 @@
           class="mr-4"
           @click="validate"
         >
-          Validate
+          送出
         </v-btn>
 
         <v-btn color="error" class="mr-4" @click="reset"> 所有欄位清空 </v-btn>
@@ -71,8 +57,10 @@
 
 <script setup>
 import { mdiPlus, mdiMinus } from '@mdi/js';
+import { useFormsStore } from '@/store/forms.js';
 
 const config = useRuntimeConfig();
+const formsStore = useFormsStore();
 
 const [{ data: collectionsNames }, { data: allDocuments }] = await Promise.all([
   $fetch(`${config.public.apiBase}/api/v1/yt/collectionsnames`),
@@ -102,30 +90,46 @@ watch(channelName, (oldVal, newVal) => {
   //console.log(oldVal, newVal);
   //searchVideoChannelName = filterVideoChannelName();
 });
-
+/*
 const channelNameTextField = reactive([
   { id: Math.floor(Date.now()), content: '' }
 ]);
+*/
 
-const addChannelNameTextField = () => {
-  const data = {
-    id: Math.floor(Date.now()),
-    content: channelName.value
-  };
-  channelName.value = '';
-  channelNameTextField.push(data);
-  console.log(channelNameTextField);
+const addChannelNameOrType = type => {
+  if (type === 0) {
+    const channelNameData = {
+      id: Math.floor(Date.now()),
+      content: channelName.value
+    };
+    formsStore.addChannelName(channelNameData);
+    channelName.value = '';
+  } else if (type === 1) {
+    const channelTypeData = {
+      id: Math.floor(Date.now()),
+      content: channelType.value
+    };
+    formsStore.addChannelType(channelTypeData);
+    channelType.value = '';
+  }
 };
 
+/*
 const deleteChannelNameTextField = item => {
   const currentChannelNameTextFieldIndex = channelNameTextField.indexOf(item);
   channelNameTextField.splice(currentChannelNameTextFieldIndex, 1);
 };
+*/
 
 const channelNameRules = reactive([
   v => !!v || '欄位必填',
   v => (v && v.split(' ').length <= 10) || '空白不能超過10個',
   v => (v && v.length <= 50) || '最多不能超過50個字'
+]);
+
+const channelTypeRules = reactive([
+  v => (v && v.split(' ').length <= 10) || '空白不能超過10個',
+  v => (v && v.length <= 15) || '最多不能超過15個字'
 ]);
 
 const validate = () => {
@@ -140,6 +144,12 @@ const resetValidation = () => {
 </script>
 
 <style scoped>
+.v-row {
+  margin-top: 12px;
+}
+.v-text-field {
+  margin-left: 40px;
+}
 .v-row {
   margin-bottom: 20px;
 }

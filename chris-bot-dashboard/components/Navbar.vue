@@ -15,8 +15,7 @@
       <v-icon> {{ mdiListBoxOutline }} </v-icon>
     </v-btn>
     <v-btn
-      v-show="!displayBar()"
-      v-if="!userStore.getLoginStatus"
+      v-if="!displayBar() && !userStore.getLoginStatus"
       icon
       placeholder="Login"
       :href="oauth2Url"
