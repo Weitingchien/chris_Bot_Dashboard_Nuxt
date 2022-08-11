@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center">
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid">
       <v-text-field
         v-model="channelName"
         :counter="50"
@@ -9,15 +9,20 @@
         required
       >
         <template v-slot:append>
-          <v-icon color="red" @click="addChannelNameOrType(0)">
+          <v-icon
+            v-if="channelNameIconDisplay()"
+            color="red"
+            @click="addChannelNameOrType(0)"
+          >
             {{ mdiPlus }}
           </v-icon>
         </template>
       </v-text-field>
 
-      <v-list v-for="item in searchVideoChannelName">{{ item }}</v-list>
+      <!--<v-list v-for="item in searchVideoChannelName">{{ item }}</v-list>-->
 
       <v-divider class="my-4"></v-divider>
+
       <v-item-group multiple>
         <span>youtube自動推播專區目前的頻道種類有: </span>
         <v-item v-for="item in filterCollectionsNames" :key="item">
@@ -30,27 +35,17 @@
         :counter="15"
         :rules="channelTypeRules"
         label="其他推薦的頻道種類"
-        required
       >
         <template v-slot:append>
-          <v-icon color="red" @click="addChannelNameOrType(1)">
+          <v-icon
+            color="red"
+            v-if="channelTypeIconDisplay()"
+            @click="addChannelNameOrType(1)"
+          >
             {{ mdiPlus }}
           </v-icon>
         </template>
       </v-text-field>
-
-      <v-row class="d-flex justify-center">
-        <v-btn
-          :disabled="!valid"
-          color="success"
-          class="mr-4"
-          @click="validate"
-        >
-          送出
-        </v-btn>
-
-        <v-btn color="error" class="mr-4" @click="reset"> 所有欄位清空 </v-btn>
-      </v-row>
     </v-form>
   </div>
 </template>
@@ -71,7 +66,7 @@ const form = ref(null);
 const valid = ref(true);
 const channelName = ref('');
 const channelType = ref('');
-const searchVideoChannelName = reactive([]);
+//const searchVideoChannelName = reactive([]);
 
 const filterCollectionsNames = collectionsNames.map(el => el.split('V')[0]);
 
@@ -81,16 +76,12 @@ const getAllVideoChannelName = allDocuments.map(el =>
 const allVideoChannelName = reactive(getAllVideoChannelName);
 console.log(`allVideoChannelName: ${allVideoChannelName}`);
 
+/*
 const filterVideoChannelName = () => {
   console.log('搜尋中');
   return allVideoChannelName.filter(el => el === channelName.value);
 };
 
-watch(channelName, (oldVal, newVal) => {
-  //console.log(oldVal, newVal);
-  //searchVideoChannelName = filterVideoChannelName();
-});
-/*
 const channelNameTextField = reactive([
   { id: Math.floor(Date.now()), content: '' }
 ]);
@@ -98,6 +89,7 @@ const channelNameTextField = reactive([
 
 const addChannelNameOrType = type => {
   if (type === 0) {
+    if (!channelName.value.split(' ').join('').length) return;
     const channelNameData = {
       id: Math.floor(Date.now()),
       content: channelName.value
@@ -105,50 +97,67 @@ const addChannelNameOrType = type => {
     formsStore.addChannelName(channelNameData);
     channelName.value = '';
   } else if (type === 1) {
+    if (!channelType.value.split(' ').join('').length) return;
     const channelTypeData = {
       id: Math.floor(Date.now()),
       content: channelType.value
     };
+
     formsStore.addChannelType(channelTypeData);
     channelType.value = '';
   }
+  form.value.resetValidation();
 };
 
-/*
-const deleteChannelNameTextField = item => {
-  const currentChannelNameTextFieldIndex = channelNameTextField.indexOf(item);
-  channelNameTextField.splice(currentChannelNameTextFieldIndex, 1);
+const channelNameIconDisplay = () => {
+  if (channelName.value === null) {
+    return false;
+  } else if (
+    channelName.value.trim().length !== 0 &&
+    channelName.value.length <= 50
+  ) {
+    return true;
+  }
+  return false;
 };
-*/
+
+const channelTypeIconDisplay = () => {
+  if (channelType.value === null) {
+    return false;
+  }
+  if (channelType.value.trim().length !== 0 && channelType.value.length <= 15) {
+    return true;
+  }
+  return false;
+};
 
 const channelNameRules = reactive([
-  v => !!v || '欄位必填',
-  v => (v && v.split(' ').length <= 10) || '空白不能超過10個',
+  v => v.trim().length !== 0 || '不能全是空格',
   v => (v && v.length <= 50) || '最多不能超過50個字'
 ]);
 
 const channelTypeRules = reactive([
-  v => (v && v.split(' ').length <= 10) || '空白不能超過10個',
-  v => (v && v.length <= 15) || '最多不能超過15個字'
+  v => v.trim().length !== 0 || '不能全是空格',
+  v => v.length <= 15 || '最多不能超過15個字'
 ]);
-
-const validate = () => {
-  form.value.validate();
-};
-const reset = () => {
-  form.value.reset();
-};
-const resetValidation = () => {
-  form.value.resetValidation();
-};
 </script>
 
 <style scoped>
+.resetbtn {
+  background-color: #ef5350;
+  color: rgb(0, 0, 0);
+}
+
 .v-row {
   margin-top: 12px;
 }
+
+.v-input__control {
+  max-width: 322.25px;
+}
 .v-text-field {
   margin-left: 40px;
+  margin-right: 16px;
 }
 .v-row {
   margin-bottom: 20px;

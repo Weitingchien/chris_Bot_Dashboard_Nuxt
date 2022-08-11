@@ -49,15 +49,19 @@ const sessionSchema = new mongoose.Schema({
   }
 });
 
-const ChannelRecommendationSchema = new mongoose.Schema({
-  videoLink: {
-    type: String,
-    required: [
-      true,
-      'If you want to recommend a channel, you must provide a link'
-    ]
-  }
-});
+const ChannelRecommendationSchema = new mongoose.Schema(
+  {
+    channelsNames: {
+      type: String,
+      required: [true, 'You must provide a channelsNames']
+    },
+    channelsTypes: {
+      type: String,
+      requried: [true, 'You must provide a channelsTypes']
+    }
+  },
+  { timestamps: true }
+);
 
 const ChannelRecommendation = chrisbotDB.model(
   'ChannelRecommendation',

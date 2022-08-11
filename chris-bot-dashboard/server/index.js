@@ -4,6 +4,7 @@ import session from 'express-session';
 import webCrawler from './routes/webCrawler';
 import auth from './routes/auth/auth';
 import statistics from './routes/statistics/statistics';
+import forms from './routes/forms/forms';
 
 const app = express();
 const config = useRuntimeConfig();
@@ -41,6 +42,7 @@ app.use('*', (req, res, next) => {
 app.use(statistics);
 app.use(webCrawler);
 app.use(auth);
+app.use(forms);
 
 //app.listen(PORT, () => console.log(`Running on port: ${PORT}`));
 

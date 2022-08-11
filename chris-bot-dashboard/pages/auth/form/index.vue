@@ -37,6 +37,10 @@ const selectedTab = ref(null);
 
 const tabs = reactive([
   { type: 'forms', description: '表單', icon: mdiListBoxOutline },
-  { type: 'preview', description: '預覽/移除', icon: mdiTextBoxSearchOutline }
+  {
+    type: 'preview',
+    description: '預覽/移除/送出',
+    icon: mdiTextBoxSearchOutline
+  }
 ]);
 </script>
