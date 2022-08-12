@@ -23,10 +23,12 @@ const userSchema = new mongoose.Schema(
       type: String
     },
     access_token: {
-      type: String
+      type: String,
+      required: true
     },
     refresh_token: {
-      type: String
+      type: String,
+      required: true
     }
   },
   { timestamps: true }
@@ -85,5 +87,6 @@ const chrisbotDashboardSession = chrisbotDB.model(
 export default {
   chrisbotDashboardUsers,
   ChannelRecommendation,
-  chrisbotDashboardSession
+  chrisbotDashboardSession,
+  chrisbotDB
 };

@@ -5,13 +5,31 @@
       @click="displayList"
     ></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
-    <v-btn v-show="!displayBar()" to="/" icon placeholder="Dashboard">
+    <v-btn
+      v-show="!displayBar()"
+      to="/"
+      aria-label="Dashboard"
+      icon
+      placeholder="Dashboard"
+    >
       <v-icon> {{ mdiViewDashboard }} </v-icon>
     </v-btn>
-    <v-btn v-show="!displayBar()" to="/webcrawler" icon placeholder="SpiderWeb">
+    <v-btn
+      v-show="!displayBar()"
+      to="/webcrawler"
+      aria-label="SpiderWeb"
+      icon
+      placeholder="SpiderWeb"
+    >
       <v-icon>{{ mdiSpiderWeb }}</v-icon>
     </v-btn>
-    <v-btn v-show="!displayBar()" to="/auth/form" icon placeholder="Form">
+    <v-btn
+      v-show="!displayBar()"
+      to="/auth/form"
+      aria-label="Form"
+      icon
+      placeholder="Form"
+    >
       <v-icon> {{ mdiListBoxOutline }} </v-icon>
     </v-btn>
     <v-btn
@@ -89,7 +107,6 @@
         value="Login"
       >
       </v-list-item>
-      <!--https://cdn.discordapp.com/avatars/user_id/user_avatar.png-->
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -118,7 +135,7 @@ const displayList = () => {
 };
 
 const oauth2Url = ref(
-  `https://discord.com/api/oauth2/authorize?client_id=${config.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
+  `https://discord.com/api/oauth2/authorize?client_id=${config.public.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
 );
 
 const logout = async () => {

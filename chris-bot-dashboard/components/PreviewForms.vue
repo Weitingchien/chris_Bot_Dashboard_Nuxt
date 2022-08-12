@@ -1,4 +1,11 @@
 <template>
+  <v-alert
+    transition="scroll-y-transition"
+    v-show="formSendingStatus"
+    :value="formSendingStatus"
+    type="success"
+    >{{ formSendingStatus }}</v-alert
+  >
   <div class="d-flex align-center flex-column preview">
     <v-card tonal>
       <template v-slot:title> 推薦的頻道</template>
@@ -68,6 +75,7 @@ import { useFormsStore } from '@/store/forms';
 const isChecked = ref(false);
 const formsStore = useFormsStore();
 const config = useRuntimeConfig();
+const formSendingStatus = ref(false);
 
 const valid = ref(
   toRaw(formsStore.getChannelName).length ||
@@ -102,7 +110,7 @@ watch([formsStore.getChannelName, formsStore.getChannelType], () => {
   }
 });
 
-const submit = () => {
+const submit = async () => {
   const channelsNamesContent = toRaw(formsStore.getChannelName).map(
     el => el.content
   );
@@ -114,12 +122,21 @@ const submit = () => {
     channelsNames: channelsNamesContent,
     channelsTypes: channelsTypesContent
   };
-  const { data, pending, refresh, error } = $fetch(
+  const { data, pending, refresh, error } = await $fetch(
     `${config.public.apiBase}/api/v1/forms/submit`,
     { method: 'POST', body: formsData }
   );
-  console.log(data);
+  formSendingStatus.value = data;
 };
+
+watch(formSendingStatus, () => {
+  const timer = setTimeout(() => {
+    formSendingStatus.value = false;
+  }, 3000);
+  if (formSendingStatus.value === false) {
+    clearTimeout(timer);
+  }
+});
 
 const clearAll = () => {
   formsStore.clearAll();

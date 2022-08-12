@@ -7,6 +7,12 @@ export async function formsController(req, res, next) {
   };
   const forms = new users.ChannelRecommendation(recommendation);
   console.log(forms);
-  forms.save();
-  res.status(200).json({ status: 'success', data: '表單新增成功' });
+  forms.save((err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('回覆');
+      res.status(200).json({ status: 'success', data: '表單已成功送出' });
+    }
+  });
 }

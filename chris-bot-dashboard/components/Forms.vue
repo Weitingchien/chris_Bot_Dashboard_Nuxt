@@ -19,8 +19,6 @@
         </template>
       </v-text-field>
 
-      <!--<v-list v-for="item in searchVideoChannelName">{{ item }}</v-list>-->
-
       <v-divider class="my-4"></v-divider>
 
       <v-item-group multiple>

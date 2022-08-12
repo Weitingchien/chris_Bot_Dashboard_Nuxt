@@ -1,46 +1,35 @@
 <template>
   <div class="d-flex justify-center">
-    <v-card>
-      <v-tabs v-model="selectedTab" fixed-tabs>
-        <v-tab
-          v-for="(item, index) in tabs"
-          :key="item.type"
-          :value="item.type"
-        >
-          <v-icon>{{ item.icon }}</v-icon>
-          {{ item.description }}
-        </v-tab>
-      </v-tabs>
-      <v-divider class="mb-4"></v-divider>
-      <v-window v-model="selectedTab">
-        <v-window-item
-          v-for="(item, index) in tabs"
-          :key="item.type"
-          :value="item.type"
-        >
-          <v-card v-if="index === 0">
-            <Forms />
-          </v-card>
-          <v-card v-else-if="index === 1">
-            <PreviewForms />
-          </v-card>
-        </v-window-item>
-      </v-window>
-    </v-card>
+    <v-list-item to="/auth/form/youtube">
+      <v-card tonal>
+        <v-card-title>Youtube</v-card-title>
+        <v-card-subtitle>頻道推薦表單</v-card-subtitle>
+        <v-card-text
+          >Discord的推播專區會依照各位推薦的頻道來作新增
+          目前是5分鐘爬取一次YT網站 如果該頻道有更新影片會發佈到Discord
+          但因為爬取太多或太頻繁都會被ban 所以可能各位推薦的頻道不一定會新增進去
+          不過之後如果代理IP的功能完成 可能就沒這問題
+        </v-card-text>
+      </v-card>
+    </v-list-item>
   </div>
 </template>
 
 <script setup>
-import { mdiListBoxOutline, mdiTextBoxSearchOutline } from '@mdi/js';
-
-const selectedTab = ref(null);
-
-const tabs = reactive([
-  { type: 'forms', description: '表單', icon: mdiListBoxOutline },
-  {
-    type: 'preview',
-    description: '預覽/移除/送出',
-    icon: mdiTextBoxSearchOutline
-  }
+const socialMediaPlatforms = reactive([
+  'youtube',
+  'twitch',
+  'twitter',
+  'facebook'
 ]);
 </script>
+
+<style scoped>
+.v-list-item {
+  width: 418.25px;
+}
+.v-card-text {
+  line-height: 24px !important;
+  letter-spacing: 3px;
+}
+</style>

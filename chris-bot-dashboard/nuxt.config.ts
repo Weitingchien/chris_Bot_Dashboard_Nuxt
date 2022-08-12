@@ -33,11 +33,11 @@ export default defineNuxtConfig({
       runtimeConfig: {
         MONGODBCONNECTIONSTRINGYTCHANNEL: process.env.MONGODBCONNECTIONSTRINGYTCHANNEL, // can be overridden by NUXT_API_SECRET environment variable
         MONGODBCONNECTIONSTRINGCHRISBOTDB: process.env.MONGODBCONNECTIONSTRINGCHRISBOTDB,
-        CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         SECRET: process.env.SECRET,
         public: {
           apiBase: process.env.NUXT_PUBLIC_API_BASE, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
+          CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         }
       },
       /*

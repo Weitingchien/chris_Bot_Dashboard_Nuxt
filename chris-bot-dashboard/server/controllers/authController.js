@@ -1,8 +1,27 @@
-//import db from '../config/mongodb';
+export function logout(req, res, next) {
+  req.logout(err => {
+    if (err) next(err);
+    res.redirect('/');
+  });
+}
 
-import users from '../models/chrisbotDashboardModel';
-import { serializeSession } from '../utils/session';
+export async function isAuthorized(req, res, next) {
+  if (req.user) {
+    console.log('User is logged in');
+    return res.status(200).json({
+      status: 'success',
+      data: {
+        userID: req.user.userID,
+        userAvatar: req.user.userAvatar,
+        userName: req.user.userName
+      }
+    });
+  }
+  console.log('User is not logged in');
+  return res.status(401).json({ status: 'fail', data: '尚未登入' });
+}
 
+/*
 async function createOrUpdateUser(
   user,
   id,
@@ -43,7 +62,7 @@ export async function redirect(req, res, next) {
       console.log('get access_token');
       const config = useRuntimeConfig();
       const formData = new URLSearchParams({
-        client_id: config.CLIENT_ID,
+        client_id: config.public.CLIENT_ID,
         client_secret: config.CLIENT_SECRET,
         grant_type: 'authorization_code',
         code,
@@ -79,12 +98,12 @@ export async function redirect(req, res, next) {
 
       await serializeSession(req, newUser);
       return res.redirect('/');
-      /*
+      
       res.status(200).json({
         status: 'success',
         data: newUser
       });
-      */
+      
     } catch (err) {
       console.log(err);
       res.status(400).json({
@@ -102,3 +121,4 @@ export async function logout(req, res, next) {
   res.clearCookie('connectID');
   res.status(200).json({ status: 'success', data: 'cookie deleted!' });
 }
+*/

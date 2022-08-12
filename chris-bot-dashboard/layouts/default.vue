@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <v-layout>
       <Navbar />
       <v-main>
@@ -16,8 +16,9 @@
         color="info"
       >
       </v-btn>
+      <Footer />
     </v-layout>
-  </div>
+  </v-app>
 </template>
 
 <script setup>
@@ -32,8 +33,15 @@ const toggleTheme = () => {
 
 <style scoped>
 .toggletheme {
+  z-index: 1;
+  position: fixed;
+  bottom: 40px;
+  right: 0;
+}
+
+.v-footer {
   position: fixed;
   bottom: 0;
-  right: 0;
+  width: 100%;
 }
 </style>

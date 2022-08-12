@@ -4,7 +4,8 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "start": "NITRO_HOST=localhost node .output/server/index.mjs"
   },
   "devDependencies": {
     "@mdi/js": "^7.0.96",
@@ -16,12 +17,16 @@
     "@css-render/vue3-ssr": "^0.15.10",
     "@pinia/nuxt": "^0.3.1",
     "@vueuse/core": "^9.0.0",
+    "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mdi": "^2.2.43",
     "mongoose": "^6.5.0",
+    "passport": "^0.6.0",
+    "passport-discord": "^0.1.4",
     "pinia": "^2.0.17",
     "sass": "^1.54.0",
     "universal-cookie": "^4.0.4",

@@ -13,15 +13,16 @@ export default defineNuxtRouteMiddleware(async to => {
 
     if (to.path.includes('auth')) {
       if (error.value) {
-        return navigateTo('/', { redirectCode: 301 });
+        return externalRedirect(
+          `https://discord.com/api/oauth2/authorize?client_id=${config.public.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`,
+          301
+        );
       }
     }
 
     if (data.value) {
       const userStore = useUserStore();
-      const parseUserData = JSON.parse(data.value.data[0]);
-      parseUserData.userID = data.value.data[1];
-      const newUserData = parseUserData;
+      const newUserData = data.value.data;
       userStore.addUserData(newUserData);
     }
   }
