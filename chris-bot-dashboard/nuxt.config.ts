@@ -49,9 +49,4 @@ export default defineNuxtConfig({
     },
     */
     //publicRuntimeConfig: {},
-    /*
-    privateRuntimeConfig: {
-        MONGODBCONNECTIONSTRING: process.env.MONGODBCONNECTIONSTRING
-    }
-    */
 })
