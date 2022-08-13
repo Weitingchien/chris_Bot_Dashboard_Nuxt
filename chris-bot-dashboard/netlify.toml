@@ -2,3 +2,7 @@
   command = "yarn build"
   publish = "dist"
   functions = ".output/server"
+[[redirects]]
+  from = "/api/*"
+  to = "https://passport-discord-oauth2--lexi.netlify.app/"
+  status = 200
