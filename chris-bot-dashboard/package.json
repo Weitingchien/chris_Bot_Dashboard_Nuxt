@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@mdi/js": "^7.0.96",
+    "@nuxtjs/vercel-builder": "^0.22.1",
     "@vueuse/nuxt": "^9.0.0",
     "nuxt": "3.0.0-rc.6",
     "unplugin-vue-components": "^0.21.2"
