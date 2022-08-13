@@ -6,9 +6,7 @@ export default defineNuxtRouteMiddleware(async to => {
   if (process.client) {
     const config = useRuntimeConfig();
     const { data, pending, refresh, error } = await useFetch(
-      `${
-        config.public.apiBase || 'https://lexi.netlify.app'
-      }/api/v1/discord/auth`
+      'https://lexi.netlify.app/api/v1/discord/auth'
     );
 
     // if path contain /auth/... and get error would redirect to home page.
