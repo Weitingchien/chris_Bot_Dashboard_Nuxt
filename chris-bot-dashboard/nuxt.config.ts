@@ -36,7 +36,7 @@ export default defineNuxtConfig({
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         SECRET: process.env.SECRET,
         public: {
-          apiBase: process.env.NUXT_PUBLIC_API_BASE || process.env.DEPLOY_URL, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
+          apiBase: process.env.NUXT_PUBLIC_API_BASE, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
           CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         }
       },
