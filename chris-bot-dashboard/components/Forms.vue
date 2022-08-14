@@ -49,16 +49,13 @@
 </template>
 
 <script setup>
-import { mdiPlus, mdiMinus } from '@mdi/js';
+import { mdiPlus } from '@mdi/js';
 import { useFormsStore } from '@/store/forms.js';
 
-const config = useRuntimeConfig();
 const formsStore = useFormsStore();
 
-const [{ data: collectionsNames }, { data: allDocuments }] = await Promise.all([
-  $fetch(`/api/v1/yt/collectionsnames`),
-  $fetch(`/api/v1/yt/documents`)
-]);
+const { data: collectionsNames } = await $fetch('/api/v1/yt/collectionsnames');
+//const { data: allDocuments } = await $fetch('/api/v1/yt/documents');
 
 const form = ref(null);
 const valid = ref(true);
@@ -67,12 +64,7 @@ const channelType = ref('');
 //const searchVideoChannelName = reactive([]);
 
 const filterCollectionsNames = collectionsNames.map(el => el.split('V')[0]);
-
-const getAllVideoChannelName = allDocuments.map(el =>
-  el.videoChannelName.toLowerCase()
-);
-const allVideoChannelName = reactive(getAllVideoChannelName);
-console.log(`allVideoChannelName: ${allVideoChannelName}`);
+//const allVideoChannelName = reactive(getAllVideoChannelName);
 
 /*
 const filterVideoChannelName = () => {

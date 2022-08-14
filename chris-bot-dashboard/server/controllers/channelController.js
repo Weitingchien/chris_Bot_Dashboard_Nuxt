@@ -1,7 +1,6 @@
 import channels from '../models/channelModel';
 
 export async function channelController(req, res, next) {
-  console.log('getAllChannels');
   try {
     const ApexChannelsInfo = await channels.ApexChannels.find();
     const JTracksChannelsInfo = await channels.JTracksChannels.find();

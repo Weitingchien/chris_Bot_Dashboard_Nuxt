@@ -6,10 +6,14 @@ const router = express.Router();
 
 router.get('/logout', logout);
 router.get('/v1/discord/auth', isAuthorized);
+router.get('/v1/discord/redirect');
 
 router.get(
   '/v1/discord/redirect',
-  passport.authenticate('discord', { successRedirect: '/' })
+  passport.authenticate('discord', {
+    successRedirect: '/',
+    failureRedirect: '/'
+  })
 );
 
 export default router;

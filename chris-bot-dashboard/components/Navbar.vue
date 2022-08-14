@@ -134,21 +134,14 @@ const displayList = () => {
   drawer.value = !drawer.value;
 };
 
-const oauth2Url = ref(
-  `https://discord.com/api/oauth2/authorize?client_id=${config.public.CLIENT_ID}&redirect_uri=https%3A%2F%2Flexi-dashboard.vercel.app%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
-);
+const oauth2Url = ref(config.public.discordOauth2Url);
 
 const logout = async () => {
   console.log('logout');
-  console.log(config.public.apiBase);
-
-  const { data } = await useFetch(`${config.public.apiBase}/api/logout`);
+  const { data } = await useFetch(`/api/logout`);
   userStore.reset();
-  const route = useRoute();
 
-  console.log(data.value);
   if (data.value) {
-    console.log(`Route fullPath: ${route.fullPath}`);
     window.location.reload(true);
   }
 };

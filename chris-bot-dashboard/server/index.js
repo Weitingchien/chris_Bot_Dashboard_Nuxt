@@ -1,5 +1,4 @@
 import express from 'express';
-//import cookieParser from 'cookie-parser';
 import discordStrategy from './strategies/discord';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
@@ -31,16 +30,12 @@ app.use(
   })
 );
 
-//const PORT = process.env.PORT || 3001;
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(cookieParser());
 
 app.use(statistics);
 app.use(webCrawler);
 app.use(auth);
 app.use(forms);
-
-//app.listen(PORT, () => console.log(`Running on port: ${PORT}`));
 
 export default app;

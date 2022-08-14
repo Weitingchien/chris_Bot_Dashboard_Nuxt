@@ -3,9 +3,9 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "test": "cross-env ENV=test yarn dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "start": "node .output/server/index.mjs"
+    "preview": "nuxt preview"
   },
   "devDependencies": {
     "@mdi/js": "^7.0.96",
@@ -22,6 +22,7 @@
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mdi": "^2.2.43",

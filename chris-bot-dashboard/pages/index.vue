@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center">
+  <div class="d-flex flex-column justify-center">
     <h1>自動推播平台</h1>
     <v-timeline align="start">
       <v-timeline-item

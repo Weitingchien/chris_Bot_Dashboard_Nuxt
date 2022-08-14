@@ -1,4 +1,8 @@
 import { defineNuxtConfig } from 'nuxt'
+import { globalSettings } from './environmentsettings'
+
+const appEnv = process.env.ENV || 'development'
+console.log(appEnv)
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -36,7 +40,8 @@ export default defineNuxtConfig({
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         SECRET: process.env.SECRET,
         public: {
-          apiBase: process.env.NUXT_PUBLIC_API_BASE, // can be overridden by NUXT_PUBLIC_API_BASE environment variable
+          discordRedirectAPI: globalSettings[appEnv].discordRedirectAPI,
+          discordOauth2Url: globalSettings[appEnv].discordOauth2Url,
           CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         }
       },

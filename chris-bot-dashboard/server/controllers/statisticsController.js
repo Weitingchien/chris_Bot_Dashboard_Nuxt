@@ -5,7 +5,8 @@ async function documents(type) {
   return documents;
 }
 
-export function collectionsnames(req, res, next) {
+export function collectionsNames(req, res, next) {
+  console.log('collectionsNames');
   res.status(200).json({ status: 'success', data: channels.collectionsNames });
 }
 

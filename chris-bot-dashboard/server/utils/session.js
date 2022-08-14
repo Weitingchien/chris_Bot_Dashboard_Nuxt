@@ -2,13 +2,11 @@ import cookieParser from 'cookie-parser';
 import users from '../models/chrisbotDashboardModel';
 
 export async function serializeSession(req, user) {
-  console.log(`serializeSession's userName: ${user.userName}`);
   req.user = user;
   req.session.user = user.userID;
   const userSession = await users.chrisbotDashboardSession.findOne({
     userID: user.userID
   });
-  console.log(`userSession: ${userSession}`);
   const sessionData = {
     sessionID: req.sessionID,
     userID: user.userID,
@@ -28,14 +26,12 @@ export async function serializeSession(req, user) {
       sessionData,
       { new: true }
     );
-    console.log(`updateUser: ${updateUser}`);
   }
 }
 
 export async function deserializeSession(req, res, next) {
   const config = useRuntimeConfig();
   const { connectID } = req.cookies;
-  console.log(`connectID: ${connectID}`);
   if (!connectID) {
     return res.status(401).json({ status: 'fail', message: 'No session' });
   }
@@ -43,7 +39,6 @@ export async function deserializeSession(req, res, next) {
   const sessionIDFromClient = cookieParser
     .signedCookie(connectID, config.SECRET)
     .toString();
-  console.log(`sessionIDFromClient: ${sessionIDFromClient}`);
 
   const sessionFromDB = await users.chrisbotDashboardSession.findOne({
     sessionID: sessionIDFromClient
