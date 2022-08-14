@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async to => {
   if (process.client) {
     const config = useRuntimeConfig();
     const { data, pending, refresh, error } = await useFetch(
-      `${config.public.apiBase}/api/v1/discord/auth`
+      '/api/v1/discord/auth'
     );
 
     // if path contain /auth/... and get error would redirect to home page.
@@ -21,6 +21,7 @@ export default defineNuxtRouteMiddleware(async to => {
     }
 
     if (data.value) {
+      console.log(data);
       const userStore = useUserStore();
       const newUserData = data.value.data;
       userStore.addUserData(newUserData);

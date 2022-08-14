@@ -40,6 +40,10 @@ export default defineNuxtConfig({
           CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         }
       },
+      server: {
+        port: 3000,
+        host: '0.0.0.0'
+      }
       /*
       nitro: {
         plugins: [
