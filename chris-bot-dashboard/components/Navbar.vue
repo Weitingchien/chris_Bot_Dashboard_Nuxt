@@ -135,7 +135,7 @@ const displayList = () => {
 };
 
 const oauth2Url = ref(
-  `https://discord.com/api/oauth2/authorize?client_id=${config.public.CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
+  `https://discord.com/api/oauth2/authorize?client_id=${config.public.CLIENT_ID}&redirect_uri=https%3A%2F%2Flexi-dashboard.vercel.app%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
 );
 
 const logout = async () => {
