@@ -104,9 +104,7 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data, pending, refresh, error } = await $fetch(
-  `${config.public.apiBase}/api/webcrawler/all`
-);
+const { data, pending, refresh, error } = await $fetch(`/api/webcrawler/all`);
 
 const videos = reactive({
   ApexChannelsInfo: data.ApexChannelsInfo,

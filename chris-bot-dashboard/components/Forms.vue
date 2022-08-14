@@ -56,8 +56,8 @@ const config = useRuntimeConfig();
 const formsStore = useFormsStore();
 
 const [{ data: collectionsNames }, { data: allDocuments }] = await Promise.all([
-  $fetch(`${config.public.apiBase}/api/v1/yt/collectionsnames`),
-  $fetch(`${config.public.apiBase}/api/v1/yt/documents`)
+  $fetch(`/api/v1/yt/collectionsnames`),
+  $fetch(`/api/v1/yt/documents`)
 ]);
 
 const form = ref(null);
