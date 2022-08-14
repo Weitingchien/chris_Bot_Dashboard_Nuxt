@@ -32,9 +32,7 @@ export default function () {
       {
         clientID: configure().public.CLIENT_ID,
         clientSecret: configure().CLIENT_SECRET,
-        callbackURL: `${
-          configure().public.apiBase || 'https://lexi-dashboard.vercel.app'
-        }/api/v1/discord/redirect`,
+        callbackURL: `https://lexi-dashboard.vercel.app/api/v1/discord/redirect`,
         scope: ['identify']
       },
       async (accessToken, refreshToken, profile, done) => {
