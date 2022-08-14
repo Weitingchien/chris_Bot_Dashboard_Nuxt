@@ -13,10 +13,10 @@ export async function getAllDocuments(req, res, next) {
   const ApexChannelsDocuments = await documents(channels.ApexChannels);
   const JTracksChannelsDocuments = await documents(channels.JTracksChannels);
   const allDocuments = ApexChannelsDocuments.concat(JTracksChannelsDocuments);
-
-  //console.log(allDocuments);
-  res.status(200).json({
-    status: 'success',
-    data: allDocuments
-  });
+  if (allDocuments.length) {
+    res.status(200).json({
+      status: 'success',
+      data: allDocuments
+    });
+  }
 }

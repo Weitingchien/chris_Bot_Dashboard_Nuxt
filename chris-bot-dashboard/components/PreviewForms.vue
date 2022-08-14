@@ -123,7 +123,7 @@ const submit = async () => {
     channelsTypes: channelsTypesContent
   };
   const { data, pending, refresh, error } = await $fetch(
-    `${config.public.apiBase}/api/v1/forms/submit`,
+    `/api/v1/forms/submit`,
     { method: 'POST', body: formsData }
   );
   formSendingStatus.value = data;
