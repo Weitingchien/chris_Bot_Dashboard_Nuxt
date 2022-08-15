@@ -9,15 +9,14 @@
   },
   "devDependencies": {
     "@mdi/js": "^7.0.96",
-    "@nuxtjs/vercel-builder": "^0.22.1",
-    "@vueuse/nuxt": "^9.0.0",
-    "nuxt": "3.0.0-rc.6",
-    "unplugin-vue-components": "^0.21.2"
+    "@vueuse/nuxt": "^9.1.0",
+    "nuxt": "^3.0.0-rc.8",
+    "unplugin-vue-components": "^0.22.4"
   },
   "dependencies": {
     "@css-render/vue3-ssr": "^0.15.10",
-    "@pinia/nuxt": "^0.3.1",
-    "@vueuse/core": "^9.0.0",
+    "@pinia/nuxt": "^0.4.0",
+    "@vueuse/core": "^9.1.0",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
@@ -26,12 +25,13 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "mdi": "^2.2.43",
-    "mongoose": "^6.5.0",
+    "mongoose": "^6.5.2",
     "passport": "^0.6.0",
     "passport-discord": "^0.1.4",
-    "pinia": "^2.0.17",
-    "sass": "^1.54.0",
+    "pinia": "^2.0.18",
+    "pinia-plugin-persistedstate": "^2.1.1",
+    "sass": "^1.54.4",
     "universal-cookie": "^4.0.4",
-    "vuetify": "^3.0.0-beta.5"
+    "vuetify": "3.0.0-beta.5"
   }
 }

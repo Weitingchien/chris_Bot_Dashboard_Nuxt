@@ -1,81 +1,87 @@
 <template>
-  <v-alert
-    transition="scroll-y-transition"
-    v-show="formSendingStatus"
-    :value="formSendingStatus"
-    type="success"
-    >{{ formSendingStatus }}</v-alert
-  >
-  <div class="d-flex align-center flex-column preview">
-    <v-card tonal>
-      <template v-slot:title> 推薦的頻道</template>
-    </v-card>
-    <v-list
-      v-for="(item, index) in formsStore.getChannelName"
-      :key="item.id"
-      lines="two"
-      select-strategy="multiple"
+  <div v-if="loadingStore.getLoading">
+    <Loading />
+  </div>
+  <div>
+    <v-alert
+      transition="scroll-y-transition"
+      v-show="formSendingStatus"
+      :value="formSendingStatus"
+      type="success"
+      >{{ formSendingStatus }}</v-alert
     >
-      <v-list-item :value="item.content">
-        <template v-slot:prepend="{ isActive }">
-          <v-list-item-action start>
-            <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
-          </v-list-item-action>
-          <v-list-item-title>{{ item.content }}</v-list-item-title>
-          <v-btn
-            @click="deleteFormsData(index, 0)"
-            :icon="mdiClose"
-            v-show="isActive"
-            size="small"
-            color="red"
-          ></v-btn>
-        </template>
-      </v-list-item>
-    </v-list>
-    <v-card tonal>
-      <template v-slot:title> 推薦的頻道種類 </template>
-    </v-card>
-    <v-list
-      v-for="(item, index) in formsStore.getChannelType"
-      :key="item.id"
-      lines="two"
-      select-strategy="multiple"
-    >
-      <v-list-item :value="item.content">
-        <template v-slot:prepend="{ isActive }">
-          <v-list-item-action start>
-            <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
-          </v-list-item-action>
-          <v-list-item-title>{{ item.content }}</v-list-item-title>
-          <v-btn
-            @click="deleteFormsData(index, 1)"
-            :icon="mdiClose"
-            v-show="isActive"
-            size="small"
-            color="red"
-          ></v-btn>
-        </template>
-      </v-list-item>
-    </v-list>
-    <v-row class="d-flex justify-center">
-      <v-btn :disabled="!valid" class="mr-4 submitbtn" @click="submit()">
-        送出
-      </v-btn>
-      <v-btn :disabled="!valid" class="mr-4 submitbtn" @click="clearAll()">
-        全部清除
-      </v-btn>
-    </v-row>
+    <div class="d-flex align-center flex-column preview">
+      <v-card tonal>
+        <template v-slot:title> 推薦的頻道</template>
+      </v-card>
+      <v-list
+        v-for="(item, index) in formsStore.getChannelName"
+        :key="item.id"
+        lines="two"
+        select-strategy="multiple"
+      >
+        <v-list-item :value="item.content">
+          <template v-slot:prepend="{ isActive }">
+            <v-list-item-action start>
+              <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+            </v-list-item-action>
+            <v-list-item-title>{{ item.content }}</v-list-item-title>
+            <v-btn
+              @click="deleteFormsData(index, 0)"
+              :icon="mdiClose"
+              v-show="isActive"
+              size="small"
+              color="red"
+            ></v-btn>
+          </template>
+        </v-list-item>
+      </v-list>
+      <v-card tonal>
+        <template v-slot:title> 推薦的頻道種類 </template>
+      </v-card>
+      <v-list
+        v-for="(item, index) in formsStore.getChannelType"
+        :key="item.id"
+        lines="two"
+        select-strategy="multiple"
+      >
+        <v-list-item :value="item.content">
+          <template v-slot:prepend="{ isActive }">
+            <v-list-item-action start>
+              <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+            </v-list-item-action>
+            <v-list-item-title>{{ item.content }}</v-list-item-title>
+            <v-btn
+              @click="deleteFormsData(index, 1)"
+              :icon="mdiClose"
+              v-show="isActive"
+              size="small"
+              color="red"
+            ></v-btn>
+          </template>
+        </v-list-item>
+      </v-list>
+      <v-row class="d-flex justify-center">
+        <v-btn :disabled="!valid" class="mr-4 submitbtn" @click="submit()">
+          送出
+        </v-btn>
+        <v-btn :disabled="!valid" class="mr-4 submitbtn" @click="clearAll()">
+          全部清除
+        </v-btn>
+      </v-row>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { mdiYoutube, mdiClose } from '@mdi/js';
+import { mdiClose } from '@mdi/js';
 import { useFormsStore } from '@/store/forms';
+import { useLoadingStore } from '@/store/loading';
 
-const isChecked = ref(false);
 const formsStore = useFormsStore();
-const config = useRuntimeConfig();
 const formSendingStatus = ref(false);
+//const formResponseStatus = ref(false);
+const loadingStore = useLoadingStore();
 
 const valid = ref(
   toRaw(formsStore.getChannelName).length ||
@@ -111,6 +117,8 @@ watch([formsStore.getChannelName, formsStore.getChannelType], () => {
 });
 
 const submit = async () => {
+  loadingStore.isLoading(true);
+  valid.value = false;
   const channelsNamesContent = toRaw(formsStore.getChannelName).map(
     el => el.content
   );
@@ -118,15 +126,26 @@ const submit = async () => {
     el => el.content
   );
 
-  const formsData = {
-    channelsNames: channelsNamesContent,
-    channelsTypes: channelsTypesContent
-  };
-  const { data, pending, refresh, error } = await $fetch(
-    `/api/v1/forms/submit`,
-    { method: 'POST', body: formsData }
-  );
-  formSendingStatus.value = data;
+  if (channelsNamesContent.length || channelsTypesContent.length) {
+    const formsData = {
+      channelsNames: channelsNamesContent,
+      channelsTypes: channelsTypesContent
+    };
+    const { data: formResponseStatus } = await $fetch('/api/v1/forms/submit', {
+      method: 'POST',
+      body: formsData
+    });
+
+    if (formResponseStatus) {
+      formSendingStatus.value = formResponseStatus;
+      loadingStore.isLoading(false);
+      valid.value = true;
+    } else {
+      formSendingStatus.value = '表單寫入資料庫失敗';
+      loadingStore.isLoading(false);
+      valid.value = true;
+    }
+  }
 };
 
 watch(formSendingStatus, () => {

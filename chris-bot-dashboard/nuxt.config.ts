@@ -2,13 +2,12 @@ import { defineNuxtConfig } from 'nuxt'
 import { globalSettings } from './environmentsettings'
 
 const appEnv = process.env.ENV || 'development'
-console.log(appEnv)
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
     app:{
       head:{
-        title: 'chrisbotDashboard',
+        title: 'lexi-Dashboard',
         meta:[{ charset: 'utf-8' },{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
         link: [
           {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -45,10 +44,12 @@ export default defineNuxtConfig({
           CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         }
       },
+      /*
       server: {
         port: 3000,
         host: '0.0.0.0'
       }
+      */
       /*
       nitro: {
         plugins: [

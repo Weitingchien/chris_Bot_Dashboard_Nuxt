@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <v-layout>
-      <Navbar />
+      <Navigation />
+      <Appbar />
       <v-main>
         <v-container fluid>
           <NuxtPage />

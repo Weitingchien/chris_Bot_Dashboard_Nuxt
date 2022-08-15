@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar>
+  <v-app-bar app>
     <v-app-bar-nav-icon
       v-show="displayBar()"
       @click="displayList"
@@ -76,39 +76,6 @@
       </v-card>
     </v-menu>
   </v-app-bar>
-  <v-navigation-drawer v-model="drawer" absolute temporary>
-    <v-list dense nav>
-      <v-list-item
-        to="/"
-        :prepend-icon="mdiViewDashboard"
-        title="Home"
-        value="Home"
-      >
-      </v-list-item>
-      <v-list-item
-        to="/webcrawler"
-        value="Web Crawler"
-        title="Web Crawler"
-        :prepend-icon="mdiSpiderWeb"
-      >
-      </v-list-item>
-      <v-list-item
-        to="/auth/form"
-        value="Form"
-        title="Form"
-        :prepend-icon="mdiListBoxOutline"
-      >
-      </v-list-item>
-      <v-list-item
-        v-if="!userStore.getLoginStatus"
-        :href="oauth2Url"
-        :prepend-icon="mdiLogin"
-        title="Login"
-        value="Login"
-      >
-      </v-list-item>
-    </v-list>
-  </v-navigation-drawer>
 </template>
 
 <script setup>
