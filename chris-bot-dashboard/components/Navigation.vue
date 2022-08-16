@@ -1,5 +1,10 @@
 <template>
-  <v-navigation-drawer v-model="drawer" absolute temporary app>
+  <v-navigation-drawer
+    v-model="navigationStore.$state.drawer"
+    absolute
+    temporary
+    app
+  >
     <v-list dense nav>
       <v-list-item
         to="/"
@@ -42,12 +47,12 @@ import {
   mdiListBoxOutline
 } from '@mdi/js';
 import { useUserStore } from '~~/store/user.js';
+import { useNavigationStore } from '@/store/navigation';
 
 const userStore = useUserStore();
+const navigationStore = useNavigationStore();
 
 const config = useRuntimeConfig();
-
-const drawer = ref(false);
 
 const oauth2Url = ref(config.public.discordOauth2Url);
 </script>

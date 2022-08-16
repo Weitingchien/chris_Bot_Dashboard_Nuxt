@@ -2,7 +2,7 @@
   <v-app-bar app>
     <v-app-bar-nav-icon
       v-show="displayBar()"
-      @click="displayList"
+      @click.stop="navigationStore.displayList"
     ></v-app-bar-nav-icon>
     <v-spacer></v-spacer>
     <v-btn
@@ -86,20 +86,16 @@ import {
   mdiListBoxOutline
 } from '@mdi/js';
 import { useUserStore } from '~~/store/user.js';
+import { useNavigationStore } from '@/store/navigation';
 
 const userStore = useUserStore();
+const navigationStore = useNavigationStore();
 
 const { width } = useWindowSize();
 
 const config = useRuntimeConfig();
 
-const drawer = ref(false);
-
 const displayBar = () => (width.value <= 400 ? true : false);
-
-const displayList = () => {
-  drawer.value = !drawer.value;
-};
 
 const oauth2Url = ref(config.public.discordOauth2Url);
 

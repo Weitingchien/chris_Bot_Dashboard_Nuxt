@@ -51,10 +51,17 @@
 <script setup>
 import { mdiPlus } from '@mdi/js';
 import { useFormsStore } from '@/store/forms.js';
+import { useLoadingStore } from '@/store/loading';
 
 const formsStore = useFormsStore();
+const loadingStore = useLoadingStore();
+loadingStore.isLoading(true);
 
 const { data: collectionsNames } = await $fetch('/api/v1/yt/collectionsnames');
+
+if (collectionsNames.length) {
+  loadingStore.isLoading(false);
+}
 //const { data: allDocuments } = await $fetch('/api/v1/yt/documents');
 
 const form = ref(null);
