@@ -80,7 +80,6 @@ import { useLoadingStore } from '@/store/loading';
 
 const formsStore = useFormsStore();
 const formSendingStatus = ref(false);
-//const formResponseStatus = ref(false);
 const loadingStore = useLoadingStore();
 
 const valid = ref(
