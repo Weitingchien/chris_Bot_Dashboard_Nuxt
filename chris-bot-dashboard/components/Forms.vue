@@ -59,9 +59,6 @@ loadingStore.isLoading(true);
 
 const { data: collectionsNames } = await $fetch('/api/v1/yt/collectionsnames');
 
-if (collectionsNames.length) {
-  loadingStore.isLoading(false);
-}
 //const { data: allDocuments } = await $fetch('/api/v1/yt/documents');
 
 const form = ref(null);
@@ -71,6 +68,10 @@ const channelType = ref('');
 //const searchVideoChannelName = reactive([]);
 
 const filterCollectionsNames = collectionsNames.map(el => el.split('V')[0]);
+if (filterCollectionsNames.length) {
+  loadingStore.isLoading(false);
+}
+
 //const allVideoChannelName = reactive(getAllVideoChannelName);
 
 /*
