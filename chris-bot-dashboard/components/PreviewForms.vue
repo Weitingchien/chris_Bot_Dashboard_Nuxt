@@ -1,7 +1,4 @@
 <template>
-  <div v-if="loadingStore.getLoading">
-    <Loading />
-  </div>
   <div>
     <v-alert
       transition="scroll-y-transition"
