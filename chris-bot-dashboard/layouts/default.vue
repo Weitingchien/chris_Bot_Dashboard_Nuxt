@@ -1,8 +1,10 @@
 <template>
   <v-app>
     <v-layout>
-      <Navigation />
-      <Appbar />
+      <client-only>
+        <Navigation />
+        <Appbar />
+      </client-only>
       <v-main>
         <v-container fluid>
           <NuxtPage />
