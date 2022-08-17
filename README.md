@@ -14,7 +14,7 @@ Automatic push broadcast system dashboard.
 
 Channel Recommendation Form System
 
-![image](https://imgur.com/UAm1H6W.gif)
+![image](https://i.imgur.com/BPQ58sS.gif)
 
 ## TODO
 
