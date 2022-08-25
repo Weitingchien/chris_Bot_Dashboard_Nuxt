@@ -1,4 +1,4 @@
-export default function externalRedirect(url, code = 301) {
+export default function externalRedirect(url: string) {
   if (process.client) {
     window.location.href = url;
   }

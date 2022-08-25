@@ -1,3 +1,84 @@
+<script setup lang="ts">
+import { mdiPlus } from '@mdi/js';
+import { useFormsStore } from '@/store/forms.js';
+import { useLoadingStore } from '@/store/loading';
+import { IForm } from '~~/types/IForm';
+
+const formsStore = useFormsStore();
+const loadingStore = useLoadingStore();
+loadingStore.isLoading(true);
+
+const collectionsNames = await useCollectionNames();
+
+const form = ref<IForm>(null);
+const valid = ref(true);
+const channelName = ref('');
+const channelType = ref('');
+
+const filterCollectionsNames = collectionsNames.map(el => el.split('V')[0]);
+
+if (filterCollectionsNames.length) {
+  loadingStore.isLoading(false);
+}
+
+const addChannelNameOrType = (type: number) => {
+  if (type === 0) {
+    if (!channelName.value.split(' ').join('').length) return;
+    const channelNameData = {
+      id: Math.floor(Date.now()),
+      content: channelName.value
+    };
+    formsStore.addChannelName(channelNameData);
+    channelName.value = '';
+  } else if (type === 1) {
+    if (!channelType.value.split(' ').join('').length) return;
+    const channelTypeData = {
+      id: Math.floor(Date.now()),
+      content: channelType.value
+    };
+
+    formsStore.addChannelType(channelTypeData);
+    channelType.value = '';
+  }
+
+  if (form.value) {
+    form.value.reset();
+  }
+};
+
+const channelNameIconDisplay = () => {
+  if (channelName.value === null) {
+    return false;
+  } else if (
+    channelName.value.trim().length !== 0 &&
+    channelName.value.length <= 50
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const channelTypeIconDisplay = () => {
+  if (channelType.value === null) {
+    return false;
+  }
+  if (channelType.value.trim().length !== 0 && channelType.value.length <= 15) {
+    return true;
+  }
+  return false;
+};
+
+const channelNameRules = reactive([
+  (v: string) => v.trim().length !== 0 || '不能全是空格',
+  (v: string) => (v && v.length <= 50) || '最多不能超過50個字'
+]);
+
+const channelTypeRules = reactive([
+  (v: string) => v.trim().length !== 0 || '不能全是空格',
+  (v: string) => v.length <= 15 || '最多不能超過15個字'
+]);
+</script>
+
 <template>
   <div class="d-flex justify-center">
     <v-form ref="form" v-model="valid">
@@ -20,7 +101,6 @@
       </v-text-field>
 
       <v-divider class="my-4"></v-divider>
-
       <v-item-group multiple>
         <span>youtube自動推播專區目前的頻道種類有: </span>
         <v-item v-for="item in filterCollectionsNames" :key="item">
@@ -47,98 +127,6 @@
     </v-form>
   </div>
 </template>
-
-<script setup>
-import { mdiPlus } from '@mdi/js';
-import { useFormsStore } from '@/store/forms.js';
-import { useLoadingStore } from '@/store/loading';
-
-const formsStore = useFormsStore();
-const loadingStore = useLoadingStore();
-loadingStore.isLoading(true);
-
-const { data: collectionsNames } = await $fetch('/api/v1/yt/collectionsnames');
-
-//const { data: allDocuments } = await $fetch('/api/v1/yt/documents');
-
-const form = ref(null);
-const valid = ref(true);
-const channelName = ref('');
-const channelType = ref('');
-//const searchVideoChannelName = reactive([]);
-
-const filterCollectionsNames = collectionsNames.map(el => el.split('V')[0]);
-if (filterCollectionsNames.length) {
-  loadingStore.isLoading(false);
-}
-
-//const allVideoChannelName = reactive(getAllVideoChannelName);
-
-/*
-const filterVideoChannelName = () => {
-  console.log('搜尋中');
-  return allVideoChannelName.filter(el => el === channelName.value);
-};
-
-const channelNameTextField = reactive([
-  { id: Math.floor(Date.now()), content: '' }
-]);
-*/
-
-const addChannelNameOrType = type => {
-  if (type === 0) {
-    if (!channelName.value.split(' ').join('').length) return;
-    const channelNameData = {
-      id: Math.floor(Date.now()),
-      content: channelName.value
-    };
-    formsStore.addChannelName(channelNameData);
-    channelName.value = '';
-  } else if (type === 1) {
-    if (!channelType.value.split(' ').join('').length) return;
-    const channelTypeData = {
-      id: Math.floor(Date.now()),
-      content: channelType.value
-    };
-
-    formsStore.addChannelType(channelTypeData);
-    channelType.value = '';
-  }
-  form.value.resetValidation();
-};
-
-const channelNameIconDisplay = () => {
-  if (channelName.value === null) {
-    return false;
-  } else if (
-    channelName.value.trim().length !== 0 &&
-    channelName.value.length <= 50
-  ) {
-    return true;
-  }
-  return false;
-};
-
-const channelTypeIconDisplay = () => {
-  if (channelType.value === null) {
-    return false;
-  }
-  if (channelType.value.trim().length !== 0 && channelType.value.length <= 15) {
-    return true;
-  }
-  return false;
-};
-
-const channelNameRules = reactive([
-  v => v.trim().length !== 0 || '不能全是空格',
-  v => (v && v.length <= 50) || '最多不能超過50個字'
-]);
-
-const channelTypeRules = reactive([
-  v => v.trim().length !== 0 || '不能全是空格',
-  v => v.length <= 15 || '最多不能超過15個字'
-]);
-</script>
 
 <style scoped>
 .resetbtn {

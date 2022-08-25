@@ -1,11 +1,7 @@
 <template>
   <div>
-    <div v-if="loadingStore.getLoading">
-      <Loading />
-    </div>
-    <div class="d-flex justify-center">
-      <Tabs />
-    </div>
+    <Loading v-if="loadingStore.getLoading" />
+    <Tabs />
   </div>
 </template>
 

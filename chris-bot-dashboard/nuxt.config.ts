@@ -39,17 +39,15 @@ export default defineNuxtConfig({
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         SECRET: process.env.SECRET,
         public: {
-          discordRedirectAPI: globalSettings[appEnv].discordRedirectAPI,
-          discordOauth2Url: globalSettings[appEnv].discordOauth2Url,
+          discordRedirectAPI: globalSettings[appEnv as 'development' | 'test' | 'production'].discordRedirectAPI,
+          discordOauth2Url: globalSettings[appEnv as 'development' | 'test' | 'production'].discordOauth2Url,
           CLIENT_ID: process.env.DISCORD_CLIENT_ID,
         }
       },
-      /*
-      server: {
-        port: 3000,
-        host: '0.0.0.0'
+      typescript: {
+        strict: true,
+        shim: false
       }
-      */
       /*
       nitro: {
         plugins: [
@@ -58,5 +56,4 @@ export default defineNuxtConfig({
         
     },
     */
-    //publicRuntimeConfig: {},
 })

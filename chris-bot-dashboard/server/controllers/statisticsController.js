@@ -6,7 +6,6 @@ async function documents(type) {
 }
 
 export function collectionsNames(req, res, next) {
-  console.log('collectionsNames');
   res.status(200).json({ status: 'success', data: channels.collectionsNames });
 }
 
