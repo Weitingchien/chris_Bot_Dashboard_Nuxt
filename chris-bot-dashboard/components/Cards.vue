@@ -110,11 +110,24 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data } = await useFetch(
-  config.public.mode === 'development'
-    ? 'http://localhost:3000/api/webcrawler/all'
-    : '/api/webcrawler/all'
-);
+const data = ref(null);
+
+if (config.public.mode === 'development') {
+  const { data: videos } = await useFetch(
+    'http://localhost:3000/api/webcrawler/all'
+  );
+  data.value = videos.value;
+} else if (config.public.mode === 'preview') {
+  const { data: videos } = await useFetch(
+    'https://lexi-dashboard-preview.vercel.app/api/webcrawler/all'
+  );
+  data.value = videos.value;
+} else {
+  const { data: videos } = await useFetch(
+    'https://lexi-dashboard.vercel.app/api/webcrawler/all'
+  );
+  data.value = videos.value;
+}
 
 const videos = reactive({
   ApexChannelsInfo: data.value.data.ApexChannelsInfo,
