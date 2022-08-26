@@ -1,28 +1,26 @@
 import { defineStore } from 'pinia';
 import { useStorage } from '@vueuse/core';
 export const useFormsStore = defineStore('forms', {
-  state: () => {
-    return {
-      channelName: useStorage('channelName', []),
-      channelType: useStorage('channelType', [])
-    };
-  },
+  state: () => ({
+    channelName: useStorage('channelName', [] as object[]),
+    channelType: useStorage('channelType', [] as object[])
+  }),
   persist: true,
   getters: {
     getChannelName: state => state.channelName,
     getChannelType: state => state.channelType
   },
   actions: {
-    addChannelName(data) {
+    addChannelName(data: object) {
       this.channelName.push(data);
     },
-    addChannelType(data) {
+    addChannelType(data: object) {
       this.channelType.push(data);
     },
-    removeChannelName(index) {
+    removeChannelName(index: number) {
       this.channelName.splice(index, 1);
     },
-    removeChannelType(index) {
+    removeChannelType(index: number) {
       this.channelType.splice(index, 1);
     },
     clearAll() {
