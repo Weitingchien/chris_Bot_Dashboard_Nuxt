@@ -39,6 +39,7 @@ export default defineNuxtConfig({
         CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
         SECRET: process.env.SECRET,
         public: {
+          mode: appEnv,
           discordRedirectAPI: globalSettings[appEnv as 'development' | 'test' | 'production'].discordRedirectAPI,
           discordOauth2Url: globalSettings[appEnv as 'development' | 'test' | 'production'].discordOauth2Url,
           CLIENT_ID: process.env.DISCORD_CLIENT_ID,

@@ -1,7 +1,6 @@
-//const express = require('express');
-import express from 'express';
+import { Router } from 'express';
 import { channelController } from '../controllers/channelController';
-const router = express.Router();
+const router = Router();
 
 router.get('/webcrawler/all', channelController);
 

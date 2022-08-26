@@ -1,7 +1,7 @@
 export interface IUser{
     data: {
-        userID: string,
-        userName: string,
-        userAvatar: string
+        userID?: string | null,
+        userName?: string | null,
+        userAvatar?: string | null
     }
 }

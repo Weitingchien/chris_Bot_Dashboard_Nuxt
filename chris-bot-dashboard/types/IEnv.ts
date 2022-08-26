@@ -1,18 +1,3 @@
 export type IEnv = {
-    development: {
-        discordRedirectAPI: string,
-        discordOauth2Url: string
-    },
-    test: {
-        discordRedirectAPI: string,
-        discordOauth2Url: string
-    },
-    preview: {
-        discordRedirectAPI: string,
-        discordOauth2Url:string
-    },
-    production: {
-        discordRedirectAPI: string,
-        discordOauth2Url: string
-    }
+    [key in 'development' | 'test' | 'preview' | 'production']: {discordRedirectAPI: string, discordOauth2Url: string}
 }

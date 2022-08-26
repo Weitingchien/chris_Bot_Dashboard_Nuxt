@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia';
+import { IUser } from '~~/types/IUser'; 
 
 const defaultUserState = {
   user: {
-    userAvatar: null,
-    userID: null,
-    userName: null
+    data: {
+      userID: null,
+      userName: null,
+      userAvatar: null
+    }
   }
 };
 
@@ -13,10 +16,12 @@ const defaultLoginState = false;
 export const useUserStore = defineStore('user', {
   state: () => ({
     user: {
-      userAvatar: null,
-      userID: null,
-      userName: null
-    },
+      data: {
+        userID: null,
+        userName: null,
+        userAvatar: null
+      }
+    } as IUser,
     isLogin: false
   }),
   getters: {
@@ -24,7 +29,7 @@ export const useUserStore = defineStore('user', {
     getLoginStatus: state => state.isLogin
   },
   actions: {
-    addUserData(newData) {
+    addUserData(newData: IUser) {
       this.user = newData;
       this.isLogin = true;
     },

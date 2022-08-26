@@ -13,6 +13,7 @@
       variant="text"
       max-width="210"
     >
+      <!--
       <v-layout align-center>
         <iframe
           width="210"
@@ -22,6 +23,7 @@
           allowfullscreen
         ></iframe>
       </v-layout>
+      -->
 
       <template v-slot:actions>
         <v-btn color="primary" variant="text">
@@ -46,6 +48,7 @@
       variant="text"
       max-width="210"
     >
+      <!--
       <v-layout align-center>
         <iframe
           width="210"
@@ -55,6 +58,7 @@
           allowfullscreen
         ></iframe>
       </v-layout>
+    -->
 
       <template v-slot:actions>
         <v-btn color="primary" variant="text">
@@ -80,6 +84,7 @@
       variant="text"
       max-width="210"
     >
+      <!--
       <v-layout align-center>
         <iframe
           width="210"
@@ -89,6 +94,7 @@
           allowfullscreen
         ></iframe>
       </v-layout>
+      -->
 
       <template v-slot:actions>
         <v-btn color="primary" variant="text">
@@ -104,11 +110,15 @@
 <script setup>
 const config = useRuntimeConfig();
 
-const { data, pending, refresh, error } = await $fetch(`/api/webcrawler/all`);
+const { data } = await useFetch(
+  config.public.mode === 'development'
+    ? 'http://localhost:3000/api/webcrawler/all'
+    : '/api/webcrawler/all'
+);
 
 const videos = reactive({
-  ApexChannelsInfo: data.ApexChannelsInfo,
-  JTracksChannelsInfo: data.JTracksChannelsInfo
+  ApexChannelsInfo: data.value.data.ApexChannelsInfo,
+  JTracksChannelsInfo: data.value.data.JTracksChannelsInfo
 });
 
 const arrMerge = videos.ApexChannelsInfo.concat(videos.JTracksChannelsInfo);

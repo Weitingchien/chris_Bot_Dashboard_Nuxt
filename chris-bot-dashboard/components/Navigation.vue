@@ -1,10 +1,23 @@
+<script setup lang="ts">
+import {
+  mdiSpiderWeb,
+  mdiViewDashboard,
+  mdiLogin,
+  mdiListBoxOutline
+} from '@mdi/js';
+import { useUserStore } from '~~/store/user';
+import { useNavigationStore } from '~~/store/navigation';
+
+const userStore = useUserStore();
+const navigationStore = useNavigationStore();
+
+const config = useRuntimeConfig();
+
+const oauth2Url = ref(config.public.discordOauth2Url);
+</script>
+
 <template>
-  <v-navigation-drawer
-    v-model="navigationStore.$state.drawer"
-    absolute
-    temporary
-    app
-  >
+  <v-navigation-drawer v-model="navigationStore.drawer" absolute temporary app>
     <v-list dense nav>
       <v-list-item
         to="/"
@@ -38,21 +51,3 @@
     </v-list>
   </v-navigation-drawer>
 </template>
-
-<script setup>
-import {
-  mdiSpiderWeb,
-  mdiViewDashboard,
-  mdiLogin,
-  mdiListBoxOutline
-} from '@mdi/js';
-import { useUserStore } from '~~/store/user.js';
-import { useNavigationStore } from '@/store/navigation';
-
-const userStore = useUserStore();
-const navigationStore = useNavigationStore();
-
-const config = useRuntimeConfig();
-
-const oauth2Url = ref(config.public.discordOauth2Url);
-</script>

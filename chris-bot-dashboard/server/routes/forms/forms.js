@@ -1,7 +1,7 @@
-import express from 'express';
+import { Router } from 'express';
 import { formsController } from '../../controllers/formsController';
 
-const router = express.Router();
+const router = Router();
 
 router.post('/v1/forms/submit', formsController);
 

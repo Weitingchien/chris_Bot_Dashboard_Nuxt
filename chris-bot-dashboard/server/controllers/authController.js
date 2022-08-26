@@ -1,7 +1,8 @@
 export function logout(req, res, next) {
   req.logout(err => {
     if (err) next(err);
-    res.redirect('/');
+    res.status(200).json({ status: 'success', data: 'logout success' });
+    //res.redirect('/');
   });
 }
 

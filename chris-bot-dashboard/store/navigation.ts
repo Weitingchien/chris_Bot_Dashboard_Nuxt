@@ -6,7 +6,6 @@ export const useNavigationStore = defineStore('navigation', {
   }),
   actions: {
     displayList() {
-      console.log('displayList');
       this.drawer = !this.drawer;
     }
   }

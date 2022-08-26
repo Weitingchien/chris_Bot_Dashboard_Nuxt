@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 import passport from 'passport';
 import { logout, isAuthorized } from '../../controllers/authController';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/logout', logout);
 router.get('/v1/discord/auth', isAuthorized);
