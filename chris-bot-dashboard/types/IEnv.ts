@@ -7,6 +7,10 @@ export type IEnv = {
         discordRedirectAPI: string,
         discordOauth2Url: string
     },
+    preview: {
+        discordRedirectAPI: string,
+        discordOauth2Url:string
+    },
     production: {
         discordRedirectAPI: string,
         discordOauth2Url: string

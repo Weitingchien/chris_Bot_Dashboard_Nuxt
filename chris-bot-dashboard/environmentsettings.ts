@@ -1,4 +1,6 @@
-export const globalSettings = {
+import { IEnv } from "./types/IEnv"; 
+
+export const globalSettings: IEnv = {
   development: {
     discordRedirectAPI: 'http://localhost:3000/api/v1/discord/redirect',
     discordOauth2Url: `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
@@ -6,6 +8,10 @@ export const globalSettings = {
   test: {
     discordRedirectAPI: 'http://test',
     discordOauth2Url: `https://testdiscord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
+  },
+  preview: {
+    discordRedirectAPI: 'https://lexi-dashboard-preview.vercel.app/api/v1/discord/redirect',
+    discordOauth2Url: `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=https%3A%2F%2Flexi-dashboard-preview.vercel.app%2Fapi%2Fv1%2Fdiscord%2Fredirect&response_type=code&scope=identify`
   },
   production: {
     discordRedirectAPI:
