@@ -21,13 +21,10 @@ const displayBar = () => (width.value <= 400 ? true : false);
 const oauth2Url = ref(config.public.discordOauth2Url);
 
 const logout = async () => {
-  console.log('logout');
   const { data } = await $fetch('/api/logout');
-  console.log(data);
   userStore.reset();
 
-  if (data && process.client) {
-    console.log('重新整理');
+  if (data) {
     window.location.reload();
   }
 };

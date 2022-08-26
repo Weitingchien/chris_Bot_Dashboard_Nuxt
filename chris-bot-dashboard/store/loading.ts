@@ -8,7 +8,7 @@ export const useLoadingStore = defineStore('loading', {
     getLoading: state => state.loading
   },
   actions: {
-    isLoading(val) {
+    isLoading(val: boolean) {
       this.loading = val;
     }
   }
