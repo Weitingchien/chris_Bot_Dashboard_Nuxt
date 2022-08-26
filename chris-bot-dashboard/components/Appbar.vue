@@ -7,10 +7,11 @@ import {
 } from '@mdi/js';
 import { useUserStore } from '~~/store/user';
 import { useNavigationStore } from '~~/store/navigation';
+import { useLoadingStore } from '~~/store/loading';
 
 const userStore = useUserStore();
-//console.log(userStore.getUser.data.userID)
 const navigationStore = useNavigationStore();
+const loadingStore = useLoadingStore();
 
 const { width } = useWindowSize();
 
