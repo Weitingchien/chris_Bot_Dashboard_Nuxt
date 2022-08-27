@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mdiPlus } from '@mdi/js';
-import { useFormsStore } from '@/store/forms.js';
-import { useLoadingStore } from '@/store/loading';
+import { useFormsStore } from '~~/store/forms.js';
+import { useLoadingStore } from '~~/store/loading';
 import { IForm } from '~~/types/IForm';
 
 const formsStore = useFormsStore();

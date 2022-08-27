@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { useLoadingStore } from '@/store/loading';
+import { useLoadingStore } from '~~/store/loading';
 const loadingStore = useLoadingStore();
 </script>
 

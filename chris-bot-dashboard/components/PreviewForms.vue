@@ -72,8 +72,8 @@
 
 <script setup>
 import { mdiClose } from '@mdi/js';
-import { useFormsStore } from '@/store/forms';
-import { useLoadingStore } from '@/store/loading';
+import { useFormsStore } from '~~/store/forms';
+import { useLoadingStore } from '~~/store/loading';
 
 const formsStore = useFormsStore();
 const formSendingStatus = ref(false);
